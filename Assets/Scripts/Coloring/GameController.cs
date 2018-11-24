@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
 
 	void Start () 
 	{
-		colorWheel = Instantiate(colorWheelPrefab);
+		colorWheel = GameObject.Find("ColorWheel").GetComponent<ColorWheel>();
 		colorWheel.Deactivate();		
 	}
 	
