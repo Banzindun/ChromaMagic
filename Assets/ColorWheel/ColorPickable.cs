@@ -54,6 +54,7 @@ public class ColorPickable : MonoBehaviour
 	{
 		hovered = false;
 		transform.localScale = Vector3.one;
+		transform.rotation = Quaternion.Euler(0, 0, 0);
 	}
 
 	public void PickColor()
