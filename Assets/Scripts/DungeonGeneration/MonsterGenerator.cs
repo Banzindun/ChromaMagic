@@ -69,6 +69,8 @@ public class MonsterGenerator {
             GameObject gameObject = new GameObject();
             gameObject.name = "Section: " + i;
 
+            gameObject.AddComponent<ColorChanger>();
+
             // Create the 2D box collider, add it to Collision Sprite Renderer
             if (i == 0)
             {
