@@ -3,18 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class MonsterGenerator : MonoBehaviour {
-
+public class MonsterGenerator : MonoBehaviour 
+{
     public Colorable[] Colorables;
 
     public GameObject ColorablePrefab;
-
-    public Mesh MeshColliderMesh;
-
-    private void Start()
-    {
-        createNewColorableMonster();
-    }
 
     public GameObject createNewColorableObject(Colorable colorable) {
         GameObject colorableObject = GameObject.Instantiate(ColorablePrefab);
