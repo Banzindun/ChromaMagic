@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3b1892c241cdd74ab828f8459b4e1b0, type: 3}
+  m_Name: ColorableSections
+  m_EditorClassIdentifier: 
+  ColorLayer: {fileID: 21300000, guid: f803b83e3c6848f48873c5dcd5ca6d24, type: 3}
+  BaseColors:
+  - {r: 0.9716981, g: 0.16269036, b: 0.03208439, a: 0}
+  - {r: 0.22316661, g: 0.23695527, b: 0.8018868, a: 0}
+  FinalColors:
+  - {r: 0.8584906, g: 0.19842473, b: 0.19842473, a: 0}
+  - {r: 0.018750662, g: 0.8584906, b: 0.0040494935, a: 0}
