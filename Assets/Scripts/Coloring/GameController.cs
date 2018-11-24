@@ -5,57 +5,102 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-		private enum GameState 
-		{
-				Generating,
-				PickingSection,
-				PickingColor,
-		}
+	private enum GameState 
+	{
+			Generating,
+            PickingMonster,
+            CreatingScene,
+			PickingSection,
+			PickingColor,
+	}
 
     public Timer timer = null;
     public float CurrentDifficultyModifier = 1f;
     public bool IsDoingColoring = false;
-		public ScriptableColor currentlySelected = null;
+	public ScriptableColor currentlySelected = null;
 		
     private bool alreadySetupBeforeColoring = false;
     private ColorWheel colorWheel = null;
-		private SectionSelector sectionSelector = null;
-		private MonsterGenerator monsterGenerator = null;
-		private GameState currentState = GameState.Generating;
+	private SectionSelector sectionSelector = null;
+
+    [SerializeField]
+    private GameState currentState = GameState.Generating;
+
+    private Dungeon currentDungeon = null;
+    public DungeonConstants[] Dungeons;
+    private int currentDungeonIndex;
+    public int MaxLevels;
+
+    private GameObject currentEnemy;
 
 
     void Start()
     {
-				sectionSelector = GetComponent<SectionSelector>();
-				monsterGenerator = GetComponent<MonsterGenerator>();
-				timer.Reset();
-				currentState = GameState.Generating;
+		sectionSelector = GetComponent<SectionSelector>();
+		timer.Reset();
+		currentState = GameState.Generating;
         colorWheel = GameObject.Find("ColorWheel").GetComponent<ColorWheel>();
         colorWheel.Deactivate();
     }
 
     void Update()
     {
-				switch(currentState)
-				{
-						case GameState.Generating:
-								Generate();
-								break;
-						case GameState.PickingSection:
-								UpdateWhenPickingSection();
-								break;
-						case GameState.PickingColor:
-            		if (alreadySetupBeforeColoring == false)
-            		    SetStateBeforeColoring();
-            		UpdateWhenColoring();
-								break;
-				}
+			switch(currentState)
+			{
+			case GameState.Generating:
+					Generate();
+					break;
+            case GameState.PickingMonster:
+                PickMonster();
+                break;
+            case GameState.CreatingScene:
+                CreateScene();
+                break;
+			case GameState.PickingSection:
+					UpdateWhenPickingSection();
+					break;
+			case GameState.PickingColor:
+                if (alreadySetupBeforeColoring == false)
+                    SetStateBeforeColoring();
+                UpdateWhenColoring();
+					break;
+	}
     }
 
     private void Generate()
     {
-				var colorableObject = monsterGenerator.createNewColorableMonster();
-				currentState = GameState.PickingSection;
+        if (currentDungeonIndex == MaxLevels) {
+            // The player has won 
+            YouHaveWon();
+        }
+
+        DungeonGenerator dungeonGenerator = new DungeonGenerator();
+        currentDungeon = dungeonGenerator.GenerateDungeon(Dungeons[currentDungeonIndex]);
+        currentDungeonIndex++;
+
+        currentState = GameState.PickingMonster;
+    }
+
+    public void YouHaveWon() {
+
+
+    }
+
+    private void PickMonster() {
+        if (!currentDungeon.IsAvailable()) {
+            currentState = GameState.Generating;
+            return;
+        }
+
+        currentEnemy = currentDungeon.NextMonster();
+        currentState = GameState.CreatingScene;
+    }
+
+    private void CreateScene() {
+        // TODO
+
+        currentEnemy.SetActive(true);
+        currentState = GameState.PickingSection;
     }
 
     private void UpdateWhenPickingSection()

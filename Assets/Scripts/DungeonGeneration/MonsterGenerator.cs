@@ -8,15 +8,13 @@ public class MonsterGenerator {
     // Constants to generate stuff from.
     public DungeonConstants dungeonConstants;
 
-    public GameObject ColorablePrefab;
-
     public MonsterGenerator(DungeonConstants dungeonConstants){
         this.dungeonConstants = dungeonConstants;
     }
 
     
     public GameObject createNewColorableObject(Colorable colorable) {
-        GameObject colorableObject = GameObject.Instantiate(ColorablePrefab);
+        GameObject colorableObject = new GameObject();
 
         // Get a random colorable instance
         ColorableInstance colorableInstance = AddColorableInstance(colorableObject, colorable);
@@ -29,7 +27,7 @@ public class MonsterGenerator {
 
     // Creates new monster from dungeonConstants
     public GameObject createNewMonster() {
-        GameObject colorableObject = GameObject.Instantiate(ColorablePrefab);
+        GameObject colorableObject = new GameObject();
 
         // Get a random colorable instance
         ColorableInstance colorableInstance = AddRandomColorableInstance(colorableObject);

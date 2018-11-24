@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class DungeonGenerator : MonoBehaviour{  
+[System.Serializable]
+public class DungeonGenerator{  
 
     private Dungeon dungeon;
 
