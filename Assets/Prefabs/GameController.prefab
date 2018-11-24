@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4914378021929356}
   - component: {fileID: 114651908966810410}
+  - component: {fileID: 114591605856590880}
+  - component: {fileID: 114092312448944192}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -40,6 +42,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114092312448944192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680749231934902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323cbf7b59cbd32408b48b690ced22fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Colorables:
+  - {fileID: 11400000, guid: 84e693a7a04629e48a8592acef464241, type: 2}
+  ColorablePrefab: {fileID: 1102937887712986, guid: dbfa7abe1d403064687ec1919762785e,
+    type: 2}
+--- !u!114 &114591605856590880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680749231934902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a211db86eec1e0d4d81d20a6ac392f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114651908966810410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a3b3f192eb5ca40ab603d9cd2af7c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coloringTimer: {fileID: 11400000, guid: 05c60e2456ba17a48a745acf2aedb079, type: 2}
+  timer: {fileID: 11400000, guid: 05c60e2456ba17a48a745acf2aedb079, type: 2}
   CurrentDifficultyModifier: 1
   IsDoingColoring: 0
-  colorWheelPrefab: {fileID: 0}
+  currentlySelected: {fileID: 0}

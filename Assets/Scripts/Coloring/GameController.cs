@@ -3,54 +3,89 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour 
+public class GameController : MonoBehaviour
 {
-	public Timer coloringTimer = null;
-	public float CurrentDifficultyModifier = 1f;
-	public bool IsDoingColoring = false;
-	public ColorWheel colorWheelPrefab = null;
-	private bool alreadySetupBeforeColoring = false;
-	private Colorable currentColorable = null;
-	private ColorWheel colorWheel = null;
-
-
-	void Start () 
-	{
-		colorWheel = GameObject.Find("ColorWheel").GetComponent<ColorWheel>();
-		colorWheel.Deactivate();		
-	}
-	
-	void Update () 
-	{
-		if(IsDoingColoring)
+		private enum GameState 
 		{
-			if(alreadySetupBeforeColoring == false)
-				SetStateBeforeColoring();
-			UpdateWhenColoring();
+				Generating,
+				PickingSection,
+				PickingColor,
 		}
-	}
+
+    public Timer timer = null;
+    public float CurrentDifficultyModifier = 1f;
+    public bool IsDoingColoring = false;
+		public ScriptableColor currentlySelected = null;
+		
+    private bool alreadySetupBeforeColoring = false;
+    private ColorWheel colorWheel = null;
+		private SectionSelector sectionSelector = null;
+		private MonsterGenerator monsterGenerator = null;
+		private GameState currentState = GameState.Generating;
+
+
+    void Start()
+    {
+				sectionSelector = GetComponent<SectionSelector>();
+				monsterGenerator = GetComponent<MonsterGenerator>();
+				timer.Reset();
+				currentState = GameState.Generating;
+        colorWheel = GameObject.Find("ColorWheel").GetComponent<ColorWheel>();
+        colorWheel.Deactivate();
+    }
+
+    void Update()
+    {
+				switch(currentState)
+				{
+						case GameState.Generating:
+								Generate();
+								break;
+						case GameState.PickingSection:
+								UpdateWhenPickingSection();
+								break;
+						case GameState.PickingColor:
+            		if (alreadySetupBeforeColoring == false)
+            		    SetStateBeforeColoring();
+            		UpdateWhenColoring();
+								break;
+				}
+    }
+
+    private void Generate()
+    {
+				var colorableObject = monsterGenerator.createNewColorableMonster();
+				currentState = GameState.PickingSection;
+    }
+
+    private void UpdateWhenPickingSection()
+    {
+
+    }
 
     private void SetStateBeforeColoring()
     {
-		alreadySetupBeforeColoring = true;
-		//coloringTimer.StartCountdown(currentColorable.BaseTimer * CurrentDifficultyModifier);
-		coloringTimer.StartCountdown(5f);
-		colorWheel.Activate();
+        alreadySetupBeforeColoring = true;
+        //coloringTimer.StartCountdown(currentColorable.BaseTimer * CurrentDifficultyModifier);
+        timer.StartCountdown(20f);
+				
+        colorWheel.Activate();
     }
 
     private void UpdateWhenColoring()
     {
-		coloringTimer.Update();
-		if(coloringTimer.IsNoTimeLeft)
-		{
-			SetStateAfterColoring();
-		}
+
+        timer.Update();
+        if (timer.IsNoTimeLeft)
+        {
+            SetStateAfterColoring();
+        }
     }
 
     private void SetStateAfterColoring()
     {
-		IsDoingColoring = false;
-		alreadySetupBeforeColoring = false;
-		colorWheel.Deactivate();
+        IsDoingColoring = false;
+        alreadySetupBeforeColoring = false;
+        colorWheel.Deactivate();
     }
 }

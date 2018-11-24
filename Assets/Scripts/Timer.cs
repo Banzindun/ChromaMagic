@@ -12,6 +12,15 @@ public class Timer : ScriptableObject
 	public float PercentLeft = 1f;
 
 
+	public void Reset()
+	{
+		IsCountingDown = false;
+		CountdownTime = 10f;
+		PercentLeft = 1f;
+		TimeLeft = 10f;
+		IsNoTimeLeft = false;
+	}
+
 	public void StartCountdown(float time)
 	{
 		CountdownTime = time;
