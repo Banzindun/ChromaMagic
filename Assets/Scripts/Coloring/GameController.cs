@@ -28,10 +28,6 @@ public class GameController : MonoBehaviour
 				SetStateBeforeColoring();
 			UpdateWhenColoring();
 		}
-		else
-		{
-
-		}
 	}
 
     private void SetStateBeforeColoring()
