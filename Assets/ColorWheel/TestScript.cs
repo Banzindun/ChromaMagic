@@ -17,4 +17,6 @@ public class TestScript : MonoBehaviour
 	{
 		image.color = CurrentlySelectedColor.ColorValue;
 	}
+
+
 }
