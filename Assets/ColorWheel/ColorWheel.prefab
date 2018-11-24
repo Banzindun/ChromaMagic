@@ -1519,9 +1519,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7048c0c6f9caa024b824cd0f5fac9efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ColorWheelSelection: {fileID: 1923179935070532, guid: 069a2c9a9304c924e9b47d2a90208e7c,
+  ColorWheelSelectionPrefab: {fileID: 1923179935070532, guid: 069a2c9a9304c924e9b47d2a90208e7c,
     type: 2}
-  CurrentSelectedColor: {fileID: 0}
+  CurrentSelectedColor: {fileID: 11400000, guid: df1dd9212ec08be469750b0dc4951d1f,
+    type: 2}
   BaseColors:
   - {r: 1, g: 0.995283, b: 0.995283, a: 1}
   - {r: 0.9528302, g: 0.05842829, b: 0.05842829, a: 1}
@@ -1530,13 +1531,8 @@ MonoBehaviour:
   - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
   - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
   - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
-  - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
-  - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
-  - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
-  - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
-  - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
-  - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
   selected: {fileID: 0}
+  cursor: {fileID: 0}
 --- !u!114 &114889790757914892
 MonoBehaviour:
   m_ObjectHideFlags: 1

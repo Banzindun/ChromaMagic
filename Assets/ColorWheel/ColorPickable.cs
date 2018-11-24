@@ -45,13 +45,13 @@ public class ColorPickable : MonoBehaviour
 	public void Select()
 	{
 		selected = true;
-		animationCounter = 0.0f;
 		transform.localScale = selectedScaleVector;
 	}
 
 	public void Deselect()
 	{
 		selected = false;
+		animationCounter = 0.0f;
 		transform.localScale = Vector3.one;
 		transform.rotation = Quaternion.Euler(0, 0, 0);
 	}
