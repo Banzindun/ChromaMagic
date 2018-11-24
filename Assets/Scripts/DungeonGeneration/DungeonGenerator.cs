@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class DungeonGenerator : MonoBehaviour{
+public class DungeonGenerator : MonoBehaviour{  
 
     private Dungeon dungeon;
 
@@ -29,7 +29,9 @@ public class DungeonGenerator : MonoBehaviour{
 
         for (int i = 0; i < enemies; i++)
         {
-            dungeon.AddMonster(monsterGenerator.createNewMonster());            
+            GameObject monster = monsterGenerator.createNewMonster();
+            monster.SetActive(false);
+            dungeon.AddMonster(monster);            
         }        
     }
 
