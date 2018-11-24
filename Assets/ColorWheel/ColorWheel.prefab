@@ -1531,8 +1531,9 @@ MonoBehaviour:
   - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
   - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
   - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
-  selected: {fileID: 0}
-  cursor: {fileID: 0}
+  Selected: {fileID: 0}
+  CursorPrefab: {fileID: 1393714058122154, guid: b66b8895a2ca0de428cffdea55034db6,
+    type: 2}
 --- !u!114 &114889790757914892
 MonoBehaviour:
   m_ObjectHideFlags: 1
