@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SectionSelector : MonoBehaviour {
+public class SectionSelector : MonoBehaviour 
+{
+    public bool IsFinishedSelecting = false;
+    public ColorableSectionInstance SelectedColorableSectionInstance = null;
 
-    SpriteRenderer spriteRenderer;
-    
     private float lastRaycast;
-
     private float raycastCooldown = 0.8f;
 
-    [SerializeField]
-    Color currentColor;
-
-    void Start() {
-
-        spriteRenderer = gameObject.GetComponentInParent<SpriteRenderer>();
-        //Texture2D texture = spriteRenderer.sprite.texture;       
+    public void StartSelecting()
+    {
+        IsFinishedSelecting = false;
     }
 
     private void Update()
     {
-        if (Time.time - lastRaycast > raycastCooldown) {
-            DoRaycast();
+        if(IsFinishedSelecting == false)
+        {
+            if (Time.time - lastRaycast > raycastCooldown) {
+                DoRaycast();
 
-            lastRaycast = Time.time;
+                lastRaycast = Time.time;
+            }
         } 
     }
 
@@ -84,6 +83,10 @@ public class SectionSelector : MonoBehaviour {
 
     public void OnSectionSelect(ColorableSectionInstance colorableInstance)
     {
-        Debug.Log(colorableInstance.name + " selected.");
+        if(Input.GetMouseButton(MouseButton.Right))
+        {
+            IsFinishedSelecting = true;
+            SelectedColorableSectionInstance = colorableInstance;
+        }
     }
 }

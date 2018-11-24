@@ -15,14 +15,15 @@ public class GameController : MonoBehaviour
     public Timer timer = null;
     public float CurrentDifficultyModifier = 1f;
     public bool IsDoingColoring = false;
-		public ScriptableColor currentlySelected = null;
-		
+		public ScriptableColor currentlySelectedColor = null;
+
     private bool alreadySetupBeforeColoring = false;
     private ColorWheel colorWheel = null;
 		private SectionSelector sectionSelector = null;
 		private MonsterGenerator monsterGenerator = null;
 		private GameState currentState = GameState.Generating;
-
+		private ColorableSectionInstance currentlySelectedSection = null;
+    private bool alreadySetupBeforePicking;
 
     void Start()
     {
@@ -36,12 +37,15 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+		//	Debug.Log(currentState);
 				switch(currentState)
 				{
 						case GameState.Generating:
 								Generate();
 								break;
 						case GameState.PickingSection:
+								if(alreadySetupBeforePicking == false)
+									SetStateBeforeSectionPicking();
 								UpdateWhenPickingSection();
 								break;
 						case GameState.PickingColor:
@@ -52,28 +56,53 @@ public class GameController : MonoBehaviour
 				}
     }
 
+    private void SetStateBeforeSectionPicking()
+    {
+			alreadySetupBeforePicking = true;
+			sectionSelector.StartSelecting();
+    }
+
     private void Generate()
     {
 				var colorableObject = monsterGenerator.createNewColorableMonster();
 				currentState = GameState.PickingSection;
+        timer.StartCountdown(20f);
     }
-
+	
     private void UpdateWhenPickingSection()
     {
-
+			  if(sectionSelector.IsFinishedSelecting)
+				{
+						currentlySelectedSection = sectionSelector.SelectedColorableSectionInstance;
+						currentState = GameState.PickingColor;
+				}
     }
 
     private void SetStateBeforeColoring()
     {
         alreadySetupBeforeColoring = true;
         //coloringTimer.StartCountdown(currentColorable.BaseTimer * CurrentDifficultyModifier);
-        timer.StartCountdown(20f);
-				
-        colorWheel.Activate();
+        colorWheel.Activate(currentlySelectedSection.transform.position);
     }
 
     private void UpdateWhenColoring()
     {
+				if(colorWheel.IsFinishedSelecting)
+				{
+						if(currentlySelectedColor != null)
+						{
+							currentlySelectedSection.SelectedColor = currentlySelectedColor.ColorValue;
+							currentlySelectedSection.UseSelectedColor();
+						}
+						alreadySetupBeforePicking = false;
+						currentState = GameState.PickingSection;
+						colorWheel.Deactivate();
+				}
+				if(currentlySelectedColor != null)
+				{
+					currentlySelectedSection.SelectedColor = currentlySelectedColor.ColorValue;
+					currentlySelectedSection.UseSelectedColor();
+				}
 
         timer.Update();
         if (timer.IsNoTimeLeft)

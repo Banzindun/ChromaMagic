@@ -10,6 +10,7 @@ public class ColorWheel : MonoBehaviour
 	public List<Color> BaseColors = new List<Color>();
 	public ColorPickable Selected = null;
 	public GameObject CursorPrefab = null;
+	public bool IsFinishedSelecting = false;
 	private List<ColorPickable> pickables = new List<ColorPickable>();
 	private Vector3 originalCursorLocation = new Vector3(1,1,1);
 	private GameObject cursor = null;
@@ -54,8 +55,9 @@ public class ColorWheel : MonoBehaviour
 		return selection;
     }
 
-	public void Activate()
+	public void Activate(Vector3 originalMousePosition)
 	{
+	 	IsFinishedSelecting = false;
 		gameObject.SetActive(true);
 	}
 
@@ -66,9 +68,9 @@ public class ColorWheel : MonoBehaviour
 
 	void Update()
 	{
-		if(Input.GetMouseButtonDown(MouseButton.Right))
+		if(Input.GetMouseButtonUp(MouseButton.Right))
 		{
-			originalCursorLocation = Input.mousePosition;
+			IsFinishedSelecting = true;
 		}
 		if(Input.GetMouseButton(MouseButton.Right))
 		{
