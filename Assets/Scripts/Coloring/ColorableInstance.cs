@@ -6,7 +6,7 @@ public class ColorableInstance : MonoBehaviour {
 
     public ColorableHolder ColorableHolder;
 
-    public ColorableSectionHolder[] SectionHolders;
+    public ColorableSectionInstance[] SectionHolders;
 
     public SpriteRenderer OutlineLayer;
 
@@ -15,6 +15,8 @@ public class ColorableInstance : MonoBehaviour {
     public SpriteRenderer EffectsLayer;
 
     public SpriteRenderer[] AdditionalLayers;
+
+    public int ColoredSections = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -46,28 +48,31 @@ public class ColorableInstance : MonoBehaviour {
         return gameObject.GetComponent<SpriteRenderer>();
     }
 
-    public void InitializeSectionHolders() {
-        int size = ColorableHolder.Colorable.Sections.Length;
+    public void MakeModel()
+    {
+        OutlineLayer.enabled = true;
+        DetailsLayer.enabled = false;
+        EffectsLayer.enabled = false;
 
-        ColorableSection[] sections = ColorableHolder.Colorable.Sections;
-
-        SectionHolders = new ColorableSectionHolder[sections.Length];
-
-        for (int i = 0; i < sections.Length; i++)
+        for (int i = 0; i < SectionHolders.Length; i++)
         {
-            SectionHolders[i] = new ColorableSectionHolder();
-
-            SectionHolders[i].ColorableSection = sections[i];
-
-            // Initialize the default color of the holder
-            SectionHolders[i].SelectRandomColors();
+            SectionHolders[i].UseFinalColor();
         }
     }
 
-    public void InitializeColorLayers(GameObject[] gameObjects) {
-        for (int i = 0; i < gameObjects.Length; i++)
+    public void MakeColoredModel()
+    {
+        OutlineLayer.enabled = true;
+
+        for (int i = 0; i < SectionHolders.Length; i++)
         {
-            SectionHolders[i].spriteRenderer = GetSpriteRenderer(gameObjects[i]);
+            SectionHolders[i].UseSelectedColor();
         }
+    }
+
+    public void MakeExtremelyRealistic()
+    {
+        DetailsLayer.enabled = true;
+        EffectsLayer.enabled = true;
     }
 }

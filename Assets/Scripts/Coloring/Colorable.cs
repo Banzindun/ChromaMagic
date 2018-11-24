@@ -17,6 +17,10 @@ public class Colorable : ScriptableObject {
 
     public ColorableSection[] Sections;
 
+    public Vector3 MeshScale;
+
+    public Vector3 MeshTransform;
+
     public int GetLayersCount() {
         int count = 0;
 

@@ -6,12 +6,6 @@ public class ColorChanger : MonoBehaviour {
 
     public Color NewColor;
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
-            ChangeColor();
-    }
-
     public void ChangeColor() {
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
         NewColor.a = 255;
