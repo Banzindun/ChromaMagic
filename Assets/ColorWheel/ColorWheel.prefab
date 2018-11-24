@@ -53,6 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224591212708824858}
+  - component: {fileID: 114873990084601324}
   m_Layer: 5
   m_Name: ColorWheel
   m_TagString: Untagged
@@ -1523,6 +1524,27 @@ MonoBehaviour:
     type: 2}
   ColorValue: {r: 0.041251317, g: 0.9716981, b: 0.9633584, a: 1}
   HoverScale: 1.2
+--- !u!114 &114873990084601324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1118149200830106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7048c0c6f9caa024b824cd0f5fac9efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ColorWheelSelection: {fileID: 1923179935070532, guid: 069a2c9a9304c924e9b47d2a90208e7c,
+    type: 2}
+  BaseColors:
+  - {r: 1, g: 0.995283, b: 0.995283, a: 1}
+  - {r: 0.9528302, g: 0.05842829, b: 0.05842829, a: 1}
+  - {r: 0.5285764, g: 0.9716981, b: 0.05958529, a: 1}
+  - {r: 0.023584902, g: 0.040084515, b: 1, a: 1}
+  - {r: 1, g: 0.02352941, b: 0.808607, a: 1}
+  - {r: 1, g: 0.82593554, b: 0.02352941, a: 1}
+  - {r: 1, g: 0.8160352, b: 0.02352941, a: 1}
 --- !u!114 &114889790757914892
 MonoBehaviour:
   m_ObjectHideFlags: 1
