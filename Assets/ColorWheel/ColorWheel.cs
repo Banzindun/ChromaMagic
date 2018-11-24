@@ -14,6 +14,7 @@ public class ColorWheel : MonoBehaviour
 	private Vector3 originalCursorLocation = new Vector3(1,1,1);
 	private GameObject cursor = null;
 	private RectTransform rect = null;
+	public float CursorOffset = 10f;
 	
 	void Start () 
 	{
@@ -81,10 +82,13 @@ public class ColorWheel : MonoBehaviour
 		Vector3 mouseDirection = Vector3.Normalize(Input.mousePosition - originalCursorLocation);
 		float angle = AngleBetweenVectors(mouseDirection, Vector3.up);
 		float from0To360 = angle < 0f ? 360f + angle : angle;
-		cursor.transform.localPosition = Quaternion.Euler(0, 0, from0To360) * new Vector3(0, rect.sizeDelta.x / 3f, 0);;
+		cursor.transform.localPosition = Quaternion.Euler(0, 0, from0To360) * new Vector3(0, rect.sizeDelta.x / 3f, 0);
+
 
 		float angleIncrement = 360f / (float) BaseColors.Count;
-		int position = (int)(from0To360 / angleIncrement);
+		CursorOffset = angleIncrement / 2f;
+		float from0To360Offset = (angle + CursorOffset) < 0f ? 360f + (angle + CursorOffset) : (angle + CursorOffset);
+		int position = (int)(from0To360Offset / angleIncrement);
 		if(Selected != pickables[position])
 		{
 			if(Selected != null)

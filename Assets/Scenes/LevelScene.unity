@@ -120,6 +120,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 274591152}
     m_Modifications:
+    - target: {fileID: 114873990084601324, guid: d5c79f8144afe584d9294da81e679383,
+        type: 2}
+      propertyPath: BaseColors.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 224591212708824858, guid: d5c79f8144afe584d9294da81e679383,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -209,6 +214,51 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873990084601324, guid: d5c79f8144afe584d9294da81e679383,
+        type: 2}
+      propertyPath: CursorOffset
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873990084601324, guid: d5c79f8144afe584d9294da81e679383,
+        type: 2}
+      propertyPath: BaseColors.Array.data[5].r
+      value: 0.5285764
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873990084601324, guid: d5c79f8144afe584d9294da81e679383,
+        type: 2}
+      propertyPath: BaseColors.Array.data[5].g
+      value: 0.9716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873990084601324, guid: d5c79f8144afe584d9294da81e679383,
+        type: 2}
+      propertyPath: BaseColors.Array.data[5].b
+      value: 0.05958529
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873990084601324, guid: d5c79f8144afe584d9294da81e679383,
+        type: 2}
+      propertyPath: BaseColors.Array.data[5].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873990084601324, guid: d5c79f8144afe584d9294da81e679383,
+        type: 2}
+      propertyPath: BaseColors.Array.data[6].r
+      value: 0.5285764
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873990084601324, guid: d5c79f8144afe584d9294da81e679383,
+        type: 2}
+      propertyPath: BaseColors.Array.data[6].g
+      value: 0.9716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873990084601324, guid: d5c79f8144afe584d9294da81e679383,
+        type: 2}
+      propertyPath: BaseColors.Array.data[6].b
+      value: 0.05958529
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873990084601324, guid: d5c79f8144afe584d9294da81e679383,
+        type: 2}
+      propertyPath: BaseColors.Array.data[6].a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5c79f8144afe584d9294da81e679383, type: 2}
