@@ -19,8 +19,6 @@ public class ColorableSectionInstance : MonoBehaviour {
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (ColorableSection != null)
-            FinalColor = ColorableSection.GetRandomFinalColor();
     }
 
     public void UseSelectedColor() {
@@ -33,6 +31,8 @@ public class ColorableSectionInstance : MonoBehaviour {
         else {
             colorChanger.NewColor = SelectedColor;
         }
+
+        colorChanger.ChangeColor();
 
         Colored = true;
     }
@@ -51,11 +51,13 @@ public class ColorableSectionInstance : MonoBehaviour {
             colorChanger.NewColor = FinalColor;
         }
 
+        colorChanger.ChangeColor();
+
         Colored = true;
     }
 
     // Should return level of realism
-    public int ColorRealistic()
+    public int IsColorRealistic()
     {
         return 0;
     }

@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorableInstance : MonoBehaviour {
-
-    public ColorableHolder ColorableHolder;
+    public Colorable Colorable;
 
     public ColorableSectionInstance[] SectionHolders;
 
@@ -18,18 +18,17 @@ public class ColorableInstance : MonoBehaviour {
 
     public int ColoredSections = 0;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        //if (Input.GetMouseButtonDown(1)) {
-        //    ColorChanger colorChanger = GetComponent<ColorChanger>();
-        //    colorChanger.ChangeColor();
-        //}
-	}
+    void Start()
+    {
+        SectionHolders = new ColorableSectionInstance[Colorable.Sections.Length];
+    }
+
+
+    public ColorSet GetRandomColorSet(){
+        ColorSet[] colorSets = Colorable.ColorSets;
+        int index = UnityEngine.Random.Range(0, colorSets.Length);
+        return colorSets[index];
+    }
 
     public void InitializeLayers(GameObject[] gameObjects) {
         OutlineLayer = GetSpriteRenderer(gameObjects[0]);
@@ -60,19 +59,51 @@ public class ColorableInstance : MonoBehaviour {
         }
     }
 
+
     public void MakeColoredModel()
     {
         OutlineLayer.enabled = true;
-
-        for (int i = 0; i < SectionHolders.Length; i++)
-        {
-            SectionHolders[i].UseSelectedColor();
-        }
+        DetailsLayer.enabled = false;
+        EffectsLayer.enabled = false;
+        HideSectionSpriteRenderers();
     }
+
 
     public void MakeExtremelyRealistic()
     {
         DetailsLayer.enabled = true;
         EffectsLayer.enabled = true;
+
+        ShowSectionSpriteRenderers();
+    }
+
+    public void HideSectionSpriteRenderers()
+    {
+        for (int i = 0; i < SectionHolders.Length; i++)
+        {
+            SpriteRenderer spriteRenderer = SectionHolders[i].GetComponent<SpriteRenderer>();
+            spriteRenderer.enabled = false;
+        }
+    }
+
+    public void ShowSectionSpriteRenderers()
+    {
+        for (int i = 0; i < SectionHolders.Length; i++)
+        {
+            SpriteRenderer spriteRenderer = SectionHolders[i].GetComponent<SpriteRenderer>();
+            spriteRenderer.enabled = false;
+        }
+    }
+
+    public void InitializeSectionInstances(ColorableSectionInstance[] colorableSectionInstance)
+    {
+        SectionHolders = colorableSectionInstance;
+
+        // Get random color set and assign the colors to the sections
+        ColorSet randomColorSet = GetRandomColorSet();
+        for (int i = 0; i < SectionHolders.Length; i++)
+        {
+            SectionHolders[i].SelectedColor = randomColorSet.colors[i];
+        }
     }
 }

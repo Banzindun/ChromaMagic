@@ -16,11 +16,11 @@ public class MonsterGenerator : MonoBehaviour {
         createNewColorableMonster();
     }
 
-    public GameObject createNewColorableObject(ColorableHolder holder) {
+    public GameObject createNewColorableObject(Colorable colorable) {
         GameObject colorableObject = GameObject.Instantiate(ColorablePrefab);
 
         // Get a random colorable instance
-        ColorableInstance colorableInstance = AddColorableInstance(colorableObject, holder);
+        ColorableInstance colorableInstance = AddColorableInstance(colorableObject, colorable);
 
         InitializeBaseLayers(colorableInstance, colorableObject);
         InitializeSections(colorableInstance, colorableObject);
@@ -51,10 +51,12 @@ public class MonsterGenerator : MonoBehaviour {
     {
         int depth = 10;
         
-        Sprite[] sectionColorLayers = GetSectionColorLayers(colorableInstance.ColorableHolder.Colorable);
+        Sprite[] sectionColorLayers = GetSectionColorLayers(colorableInstance.Colorable);
         GameObject[] layerObjects = new GameObject[sectionColorLayers.Length];
 
-        Colorable colorable = colorableInstance.ColorableHolder.Colorable;
+        Colorable colorable = colorableInstance.Colorable;
+
+        List<ColorableSectionInstance> sectionInstances = new List<ColorableSectionInstance>();
 
         SectionSelector sectionSelector = null;
 
@@ -74,18 +76,20 @@ public class MonsterGenerator : MonoBehaviour {
             spriteRenderer.sprite = sectionColorLayers[i];
             gameObject.transform.parent = colorableObject.transform;
             
-            ColorableSectionInstance sectionInstnace = gameObject.AddComponent<ColorableSectionInstance>();
-            sectionInstnace.ColorableSection = colorableInstance.ColorableHolder.Colorable.Sections[i];
+            ColorableSectionInstance sectionInstance = gameObject.AddComponent<ColorableSectionInstance>();
+            sectionInstance.ColorableSection = colorableInstance.Colorable.Sections[i];
+            sectionInstances.Add(sectionInstance);
 
             // Collision object
-            
+
             GameObject collisionGameObject = new GameObject();
             collisionGameObject.name = "Collision: " + i;
 
             // Create sprite renderer
             SpriteRenderer collisionSpriteRenderer = collisionGameObject.AddComponent<SpriteRenderer>();
-            collisionSpriteRenderer.sprite = colorableInstance.ColorableHolder.Colorable.Sections[i].SelectionLayer;
+            collisionSpriteRenderer.sprite = colorableInstance.Colorable.Sections[i].SelectionLayer;
             collisionGameObject.transform.parent = gameObject.transform;
+            collisionSpriteRenderer.enabled = false;
 
             // Create the 2D box collider, add it to Collision Sprite Renderer
             if (i == 0)
@@ -109,11 +113,13 @@ public class MonsterGenerator : MonoBehaviour {
             // TODO the prefab should be probably on the spot where everything should be drawed
         }
 
+        colorableInstance.InitializeSectionInstances(sectionInstances.ToArray());
+
     }
 
     private GameObject[] AddLayers(ColorableInstance colorableInstance, GameObject originalObject, int startDepth)
     {
-        Colorable colorable = colorableInstance.ColorableHolder.Colorable;
+        Colorable colorable = colorableInstance.Colorable;
         // Get all layers
         Sprite[] layers = colorable.GetAllLayers();
         GameObject[] layerObjects = new GameObject[layers.Length];
@@ -168,25 +174,22 @@ public class MonsterGenerator : MonoBehaviour {
 
     public ColorableInstance AddRandomColorableInstance(GameObject obj) {
         ColorableInstance instance = obj.AddComponent<ColorableInstance>();
-        instance.ColorableHolder = CreateRandomColorableHolder();
+        instance.Colorable = GetRandmColorable();
 
         return instance;
     }
 
-    public ColorableInstance AddColorableInstance(GameObject obj, ColorableHolder holder)
+    public ColorableInstance AddColorableInstance(GameObject obj, Colorable colorable)
     {
         ColorableInstance instance = obj.AddComponent<ColorableInstance>();
-        instance.ColorableHolder = holder;
+        instance.Colorable = colorable;
 
         return instance;
     }
 
-    public ColorableHolder CreateRandomColorableHolder() {
+    public Colorable GetRandmColorable() {
         int selected = Random.Range(0, Colorables.Length);
 
-        ColorableHolder holder = new ColorableHolder();
-        holder.Colorable = Colorables[selected];
-
-        return holder;            
+        return Colorables[selected];
     }
 }

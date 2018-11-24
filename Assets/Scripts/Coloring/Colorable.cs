@@ -15,11 +15,9 @@ public class Colorable : ScriptableObject {
     
     public float BaseTimer;
 
-    public ColorableSection[] Sections;
+    public ColorableSection[] Sections; 
 
-    public Vector3 MeshScale;
-
-    public Vector3 MeshTransform;
+    public ColorSet[] ColorSets;
 
     public int GetLayersCount() {
         int count = 0;

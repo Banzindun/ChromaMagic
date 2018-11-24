@@ -20,7 +20,7 @@ public class MonsterController : MonoBehaviour {
 
         holder.UseSelectedColor();
 
-        int score = holder.ColorRealistic();
+        int score = holder.IsColorRealistic();
         // TODO do something with the color
 
         //
