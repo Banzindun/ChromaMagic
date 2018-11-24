@@ -15,11 +15,10 @@ public class GameController : MonoBehaviour
     public Timer timer = null;
     public float CurrentDifficultyModifier = 1f;
     public bool IsDoingColoring = false;
+		public ScriptableColor currentlySelected = null;
+		
     private bool alreadySetupBeforeColoring = false;
     private ColorWheel colorWheel = null;
-
-
-		
 		private SectionSelector sectionSelector = null;
 		private MonsterGenerator monsterGenerator = null;
 		private GameState currentState = GameState.Generating;
@@ -61,7 +60,7 @@ public class GameController : MonoBehaviour
 
     private void UpdateWhenPickingSection()
     {
-			
+
     }
 
     private void SetStateBeforeColoring()

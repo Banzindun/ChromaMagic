@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a3b3f192eb5ca40ab603d9cd2af7c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coloringTimer: {fileID: 11400000, guid: 05c60e2456ba17a48a745acf2aedb079, type: 2}
+  timer: {fileID: 11400000, guid: 05c60e2456ba17a48a745acf2aedb079, type: 2}
   CurrentDifficultyModifier: 1
   IsDoingColoring: 0
-  colorWheelPrefab: {fileID: 0}
+  currentlySelected: {fileID: 0}
