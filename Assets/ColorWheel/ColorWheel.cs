@@ -5,11 +5,18 @@ using UnityEngine;
 
 public class ColorWheel : MonoBehaviour 
 {
-
-	public GameObject ColorWheelSelection = null;
+	public GameObject ColorWheelSelectionPrefab = null;
+	public ScriptableColor CurrentSelectedColor = null;
 	public List<Color> BaseColors = new List<Color>();
+	public ColorPickable selected = null;
+	private List<ColorPickable> pickables = new List<ColorPickable>();
 	
 	void Start () 
+	{
+		Show();
+	}
+
+	public void Show()
 	{
 		for(int i = transform.childCount - 1; i >= 0 ; --i)
 			Destroy(transform.GetChild(i).gameObject);
@@ -30,10 +37,34 @@ public class ColorWheel : MonoBehaviour
 
     private GameObject GenerateColorWheelSelection(Color color)
     {
-		GameObject selection = Instantiate(ColorWheelSelection, transform);
+		GameObject selection = Instantiate(ColorWheelSelectionPrefab, transform);
 		ColorPickable pickable = selection.GetComponent<ColorPickable>();
 		pickable.ColorValue = color;
+		pickables.Add(pickable);
 		
 		return selection;
+    }
+
+	void Update()
+	{
+		if(Input.GetMouseButton(MouseButton.Right))
+		{
+			SelectColor();
+		}
+		else
+		{
+			if(selected != null)
+			{
+				selected.Deselect();
+				selected = null;
+			}
+		}
+	}
+
+    private void SelectColor()
+    {
+		selected = pickables[0];
+		CurrentSelectedColor.ColorValue = selected.ColorValue;
+		selected.Select();
     }
 }

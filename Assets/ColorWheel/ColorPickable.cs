@@ -6,30 +6,29 @@ using UnityEngine.UI;
 
 public class ColorPickable : MonoBehaviour 
 {
-	public ScriptableColor CurrentSelectedColor = null;
 	public Color ColorValue;
-	public float HoverScale = 1.2f;
+	public float SelectedScale = 1.2f;
 
-	private Vector3 hoverScaleVector = new Vector3(1f,1f,1f);
-	private bool hovered = false;
+	private Vector3 selectedScaleVector = new Vector3(1f,1f,1f);
+	private bool selected = false;
 	private float animationCounter = 0.0f;
 
 	void Start()
 	{
-		hoverScaleVector = new Vector3(HoverScale,HoverScale,HoverScale);
+		selectedScaleVector = new Vector3(SelectedScale,SelectedScale,SelectedScale);
 		UpdateColor();
 	}
 
 	void Update()
 	{
 		UpdateColor();
-		if(hovered)
+		if(selected)
 		{
-			SpinAnimation();
+			Spin();
 		}
 	}
 
-    private void SpinAnimation()
+    private void Spin()
     {
 		animationCounter += Time.deltaTime;
 		float rotation = Mathf.Rad2Deg * Mathf.Sin(animationCounter);
@@ -43,22 +42,17 @@ public class ColorPickable : MonoBehaviour
 			selectableImage.color = ColorValue;
 	}
 
-	public void OnMouseEnter()
+	public void Select()
 	{
-		hovered = true;
+		selected = true;
 		animationCounter = 0.0f;
-		transform.localScale = hoverScaleVector;
+		transform.localScale = selectedScaleVector;
 	}
 
-	public void OnMouseExit()
+	public void Deselect()
 	{
-		hovered = false;
+		selected = false;
 		transform.localScale = Vector3.one;
 		transform.rotation = Quaternion.Euler(0, 0, 0);
-	}
-
-	public void PickColor()
-	{
-		CurrentSelectedColor.ColorValue = ColorValue;
 	}
 }
