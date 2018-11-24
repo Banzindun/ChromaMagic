@@ -25,7 +25,7 @@ public class ColorableSection : ScriptableObject {
     public Color GetRandomFinalColor()
     {
         int index = Random.Range(0, FinalColors.Length);
-        return FinalColors[index];
+        return FinalColors[index];200
     }
 
 }
