@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class MonsterGenerator : MonoBehaviour {
+public class MonsterGenerator {
 
-    public Colorable[] Colorables;
+    // Constants to generate stuff from.
+    public DungeonConstants dungeonConstants;
 
     public GameObject ColorablePrefab;
 
-    public Mesh MeshColliderMesh;
-
-    private void Start()
-    {
-        createNewColorableMonster();
+    public MonsterGenerator(DungeonConstants dungeonConstants){
+        this.dungeonConstants = dungeonConstants;
     }
 
+    
     public GameObject createNewColorableObject(Colorable colorable) {
         GameObject colorableObject = GameObject.Instantiate(ColorablePrefab);
 
@@ -28,7 +27,8 @@ public class MonsterGenerator : MonoBehaviour {
         return colorableObject;
     }
 
-    public GameObject createNewColorableMonster() {
+    // Creates new monster from dungeonConstants
+    public GameObject createNewMonster() {
         GameObject colorableObject = GameObject.Instantiate(ColorablePrefab);
 
         // Get a random colorable instance
@@ -71,6 +71,12 @@ public class MonsterGenerator : MonoBehaviour {
             GameObject gameObject = new GameObject();
             gameObject.name = "Section: " + i;
 
+            // Create the 2D box collider, add it to Collision Sprite Renderer
+            if (i == 0)
+            {
+                sectionSelector = gameObject.AddComponent<SectionSelector>();
+            }
+
             // Create sprite renderer
             SpriteRenderer spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = sectionColorLayers[i];
@@ -90,13 +96,7 @@ public class MonsterGenerator : MonoBehaviour {
             collisionSpriteRenderer.sprite = colorableInstance.Colorable.Sections[i].SelectionLayer;
             collisionGameObject.transform.parent = gameObject.transform;
             collisionSpriteRenderer.enabled = false;
-
-            // Create the 2D box collider, add it to Collision Sprite Renderer
-            if (i == 0)
-            { 
-                sectionSelector = gameObject.AddComponent<SectionSelector>();
-            }
-
+            
             BoxCollider2D meshCollider = collisionGameObject.AddComponent<BoxCollider2D>();
 
             MonsterController monsterController = gameObject.AddComponent<MonsterController>();
@@ -108,13 +108,9 @@ public class MonsterGenerator : MonoBehaviour {
             gameObject.transform.localPosition = newPosition;
 
             layerObjects[i] = gameObject;
-
-            // TODO maybe scale it 
-            // TODO the prefab should be probably on the spot where everything should be drawed
         }
 
         colorableInstance.InitializeSectionInstances(sectionInstances.ToArray());
-
     }
 
     private GameObject[] AddLayers(ColorableInstance colorableInstance, GameObject originalObject, int startDepth)
@@ -150,9 +146,6 @@ public class MonsterGenerator : MonoBehaviour {
             gameObject.transform.localPosition = newPosition;
 
             layerObjects[i] = gameObject;
-
-            // TODO maybe scale it 
-            // TODO the prefab should be probably on the spot where everything should be drawed
         }
 
         return layerObjects;       
@@ -188,8 +181,8 @@ public class MonsterGenerator : MonoBehaviour {
     }
 
     public Colorable GetRandmColorable() {
-        int selected = Random.Range(0, Colorables.Length);
+        int selected = Random.Range(0, dungeonConstants.Colorables.Length);
 
-        return Colorables[selected];
+        return dungeonConstants.Colorables[selected];
     }
 }

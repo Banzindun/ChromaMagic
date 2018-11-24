@@ -2,8 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class DungeonGenerator {
-    
+
+public class DungeonGenerator : MonoBehaviour{
+
+    private Dungeon dungeon;
+
+    private DungeonConstants dungeonConstants;
+
+    public Dungeon GenerateDungeon(DungeonConstants dungeonConstants)
+    {
+        this.dungeonConstants = dungeonConstants;
+        
+        dungeon = new Dungeon();
+        dungeon.Difficulty = dungeonConstants.DifficultyModifier;
+
+        GenerateMonsters();
+
+        return dungeon;
+    }
+
+
+    private void GenerateMonsters() {
+        int enemies = dungeonConstants.NumberOfMonsters;
+
+        MonsterGenerator monsterGenerator = new MonsterGenerator(dungeonConstants);
+
+        for (int i = 0; i < enemies; i++)
+        {
+            dungeon.AddMonster(monsterGenerator.createNewMonster());            
+        }        
+    }
 
 }
