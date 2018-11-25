@@ -70,9 +70,6 @@ public class SceneGenerator : MonoBehaviour {
     internal void TryInsertToEnvironment(Dungeon dungeon)
     {
         this.dungeon = dungeon;
-        if (EnemiesAssignedToScene) {
-            return;
-        }
 
         AssignDungeonBackground(dungeon.DungeonConstants.background);
 
