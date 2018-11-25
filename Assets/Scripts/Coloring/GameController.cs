@@ -60,6 +60,9 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if(timer.IsCountingDown)
+            timer.Update();
+            
         switch (currentState)
         {
             case GameState.Generating:
@@ -88,6 +91,7 @@ public class GameController : MonoBehaviour
     {
         alreadySetupBeforePicking = true;
         sectionSelector.StartSelecting();
+        timer.StartCountdown(60f);
     }
 
     private void Generate()
@@ -166,7 +170,7 @@ public class GameController : MonoBehaviour
             }
             alreadySetupBeforePicking = false;
             currentState = GameState.PickingSection;
-            colorWheel.Deactivate();
+            SetStateAfterColoring();
         }
         if (currentlySelectedColor != null)
         {
