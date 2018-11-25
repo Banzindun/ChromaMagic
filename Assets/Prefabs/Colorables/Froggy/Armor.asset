@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: Armor
   m_EditorClassIdentifier: 
   ColorLayer: {fileID: 21300000, guid: 0994a9e6553f45841b4a9732666f1fb9, type: 3}
-  SelectionLayer: {fileID: 21300000, guid: 9b86aeba528614a41a89753208d720b9, type: 3}
+  SelectionLayer: {fileID: 21300000, guid: 4f113ea01ac8c314ab3c1deb48f88368, type: 3}

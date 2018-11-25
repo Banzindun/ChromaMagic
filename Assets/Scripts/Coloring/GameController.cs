@@ -190,6 +190,7 @@ public class GameController : MonoBehaviour
     public void PlayerHasWon()
     {
         // display some gui saying the number of enemies and/or score and/or health left
+        SoundManager.Instance.PlaySound("fanfare");
         LabelCreator.Instance.CreateLabelEvent("You have won!!!", float.PositiveInfinity, new Color(0, 1, 0, 1));
     }
 
@@ -384,6 +385,7 @@ public class GameController : MonoBehaviour
 
     private void UpdateWhenDead()
     {
+        SoundManager.Instance.PlaySound("lost");
         LabelCreator.Instance.CreateLabelEvent("You died!!!", float.PositiveInfinity, new Color(1, 0, 0, 1));        
         // show some UI, if time maybe a button to retry
     }
