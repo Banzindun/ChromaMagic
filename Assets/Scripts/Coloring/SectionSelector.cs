@@ -7,9 +7,9 @@ public class SectionSelector : MonoBehaviour
 {
     public bool IsFinishedSelecting = false;
     public ColorableSectionInstance SelectedColorableSectionInstance = null;
+    public float raycastCooldown = 0.8f;
 
     private float lastRaycast;
-    private float raycastCooldown = 0.8f;
 
     public void StartSelecting()
     {

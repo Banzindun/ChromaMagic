@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -12,6 +10,7 @@ public class GameController : MonoBehaviour
         CreatingScene,
         PickingSection,
         PickingColor,
+        TimeIsUp
     }
 
     public Timer timer = null;
@@ -49,7 +48,7 @@ public class GameController : MonoBehaviour
     {
         if(timer.IsCountingDown)
             timer.Update();
-            
+
         switch (currentState)
         {
             case GameState.Generating:
@@ -70,6 +69,8 @@ public class GameController : MonoBehaviour
                 if (alreadySetupBeforeColoring == false)
                     SetStateBeforeColoring();
                 UpdateWhenColoring();
+                break;
+            case GameState.TimeIsUp:
                 break;
         }
     }
@@ -124,6 +125,13 @@ public class GameController : MonoBehaviour
         alreadySetupBeforePicking = false;
     }
 
+    private List<Color> GetRandomColorSet()
+    {
+        var instance = currentEnemy.GetComponent<ColorableInstance>();
+        int index = UnityEngine.Random.Range(0, instance.Colorable.ColorSets.Length);
+        return new List<Color>(instance.Colorable.ColorSets[index].colors);
+    }
+
     private void UpdateWhenPickingSection()
     {
         if (sectionSelector.IsFinishedSelecting)
@@ -138,6 +146,8 @@ public class GameController : MonoBehaviour
         alreadySetupBeforeColoring = true;
         //coloringTimer.StartCountdown(currentColorable.BaseTimer * CurrentDifficultyModifier);
         colorWheel.Activate(currentlySelectedSection.transform.position);
+        List<Color> palette = GetRandomColorSet();
+        colorWheel.InitializeColorPallette(palette);
     }
 
     private void UpdateWhenColoring()
@@ -163,6 +173,7 @@ public class GameController : MonoBehaviour
         if (timer.IsNoTimeLeft)
         {
             SetStateAfterColoring();
+        currentState = GameState.TimeIsUp;
         }
     }
 

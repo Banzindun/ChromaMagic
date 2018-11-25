@@ -14,7 +14,7 @@ public class ColorWheel : MonoBehaviour
 	private List<ColorPickable> pickables = new List<ColorPickable>();
 	private Vector3 originalCursorLocation = new Vector3(1,1,1);
 	private GameObject cursor = null;
-	private RectTransform rect = null;
+	public RectTransform rect = null;
 	
 	void Start () 
 	{
@@ -24,10 +24,18 @@ public class ColorWheel : MonoBehaviour
 		Setup();
 	}
 
+	public void InitializeColorPallette(List<Color> colors)
+	{
+		BaseColors = colors;
+		rect = GetComponent<RectTransform>();
+		Setup();
+	}
+
 	public void Setup()
 	{
 		for(int i = transform.childCount - 1; i >= 0 ; --i)
 			Destroy(transform.GetChild(i).gameObject);
+		pickables.Clear();
 
 		float currentAngle = 0.0f;
 		float angleIncrement = 360f / (float)BaseColors.Count;
@@ -37,7 +45,7 @@ public class ColorWheel : MonoBehaviour
 			selection.transform.localPosition = new Vector3(0, rect.sizeDelta.x / 2f, 0);
 
 			selection.transform.localPosition = Quaternion.Euler(0, 0, currentAngle) * selection.transform.localPosition;
-
+			selection.transform.localScale = new Vector3(1f,1f,1f);
 			currentAngle += angleIncrement;
 		}	
 
@@ -50,6 +58,7 @@ public class ColorWheel : MonoBehaviour
 		GameObject selection = Instantiate(ColorWheelSelectionPrefab, transform);
 		ColorPickable pickable = selection.GetComponent<ColorPickable>();
 		pickable.ColorValue = color;
+		pickable.ColorValue.a = 1f;
 		pickables.Add(pickable);
 		
 		return selection;

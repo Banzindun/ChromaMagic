@@ -54,6 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsFinishedSelecting: 0
   SelectedColorableSectionInstance: {fileID: 0}
+  raycastCooldown: 0.1
 --- !u!114 &114651908966810410
 MonoBehaviour:
   m_ObjectHideFlags: 1
