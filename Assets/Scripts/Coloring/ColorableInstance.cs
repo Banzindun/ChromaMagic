@@ -25,7 +25,7 @@ public class ColorableInstance : MonoBehaviour {
 
     public int ColoredSections = 0;
 
-    public ColorableInstance sibling;
+    public ColorableInstance Sibling;
 
     public ColorSet GetRandomColorSet() {
         ColorSet[] colorSets = Colorable.ColorSets;
@@ -63,8 +63,11 @@ public class ColorableInstance : MonoBehaviour {
     public void MakeModel()
     {
         TurnOnLayer(LAYER_TYPE.OUTLINE);
-        TurnOffLayer(LAYER_TYPE.DETAILS);
-        TurnOffLayer(LAYER_TYPE.EFFECTS);
+        //TurnOffLayer(LAYER_TYPE.DETAILS);
+        //TurnOffLayer(LAYER_TYPE.EFFECTS);
+
+        TurnOnLayer(LAYER_TYPE.DETAILS);
+        TurnOnLayer(LAYER_TYPE.EFFECTS);
 
         for (int i = 0; i < SectionHolders.Length; i++)
         {
@@ -78,8 +81,12 @@ public class ColorableInstance : MonoBehaviour {
     public void MakeColoredModel()
     {
         TurnOnLayer(LAYER_TYPE.OUTLINE);
+        //TurnOffLayer(LAYER_TYPE.DETAILS);
+        //TurnOffLayer(LAYER_TYPE.EFFECTS);
+
         TurnOffLayer(LAYER_TYPE.DETAILS);
         TurnOffLayer(LAYER_TYPE.EFFECTS);
+
         TurnOffLayer(LAYER_TYPE.COLORS);
     }
 
@@ -111,8 +118,8 @@ public class ColorableInstance : MonoBehaviour {
         SectionHolders[index].SelectedColor = color;
         SectionHolders[index].UseSelectedColor();
 
-        if (sibling != null) {
-            sibling.SetColor(index, color);
+        if (Sibling != null) {
+            Sibling.SetColor(index, color);
         }
     }
 
@@ -145,8 +152,8 @@ public class ColorableInstance : MonoBehaviour {
                 break;
         }
 
-        if (sibling != null)
-            sibling.SwitchLayer(type, bol);
+        if (Sibling != null)
+            Sibling.SwitchLayer(type, bol);
     }
 
     internal void TurnOnLayer(LAYER_TYPE type, int index)
