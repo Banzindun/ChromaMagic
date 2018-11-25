@@ -15,11 +15,9 @@ public class SceneGenerator : MonoBehaviour {
 
     private bool EnemiesAssignedToScene = false;
 
-    public float YEnvironmentOffset = -30f;
+    public float YEnvironmentOffset = -11f;
 
-    public float MinXEnvironmentOffset = -30f;
-
-    public float MaxXEnvironmentOffset = 30f;
+    public float EnemiesOffset = 30;
 
     public void Start()
     {
@@ -73,17 +71,22 @@ public class SceneGenerator : MonoBehaviour {
         AssignDungeonBackground(dungeon.DungeonConstants.background);
 
         MonsterHolder[] monsterHolder = dungeon.GetAllMonsters();
-
+        
+        // Max size .. the middle should be 0
+        float size = (monsterHolder.Length - 1) * EnemiesOffset;
+        float currentXPosition = - size/2;
+        
         for (int i = 0; i < monsterHolder.Length; i++)
         {
-            monsterHolder[i].MonsterOutlined.GetComponent<ColorableInstance>().MakeColoredModel();
+            ColorableInstance colorableInstance = monsterHolder[i].MonsterOutlined.GetComponent<ColorableInstance>();
+            colorableInstance.MakeColoredModel();
             GameObject sceneMonster = monsterHolder[i].SceneMonster;
 
             sceneMonster.transform.parent = BackgroundSlot.transform;
+            sceneMonster.transform.localScale = colorableInstance.Colorable.EnvironmentScale;
+            sceneMonster.transform.localPosition = new Vector3(currentXPosition, colorableInstance.Colorable.YEnvironmentOffset, 0.1f);
 
-            float zOffset = UnityEngine.Random.Range(-1.5f, 1.5f);
-            float xOffset = UnityEngine.Random.Range(MinXEnvironmentOffset, MaxXEnvironmentOffset);
-            sceneMonster.transform.localPosition = new Vector3(xOffset, YEnvironmentOffset, zOffset);
+            currentXPosition += EnemiesOffset; 
         }
 
         EnemiesAssignedToScene = true;
