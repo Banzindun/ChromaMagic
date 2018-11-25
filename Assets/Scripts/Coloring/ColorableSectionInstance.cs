@@ -16,7 +16,7 @@ public class ColorableSectionInstance : MonoBehaviour {
     // Reference to sprite renderer holding the sprite
     public SpriteRenderer spriteRenderer;
 
-    private void Start()
+    void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -39,7 +39,6 @@ public class ColorableSectionInstance : MonoBehaviour {
 
     public void UseFinalColor()
     {
-
         ColorChanger colorChanger = spriteRenderer.GetComponent<ColorChanger>();
         if (SelectedColor == null)
         {

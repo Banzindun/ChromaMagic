@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class Dungeon {
 
+    public DungeonConstants DungeonConstants;
+
     public float Difficulty;
 
     private Queue<GameObject> monsters;

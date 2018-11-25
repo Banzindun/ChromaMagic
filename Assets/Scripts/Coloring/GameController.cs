@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+
+    public static GameController Instance = null;
+   
+
     private enum GameState
     {
         Generating,
@@ -35,9 +39,20 @@ public class GameController : MonoBehaviour
     public int MaxLevels;
 
     private GameObject currentEnemy;
+    private GameObject currentEnemyOutline;
+    private GameObject currentEnemyModel;
+
+    public SceneGenerator SceneGenerator;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
+
+
         sectionSelector = GetComponent<SectionSelector>();
         timer.Reset();
         currentState = GameState.Generating;
@@ -108,14 +123,34 @@ public class GameController : MonoBehaviour
         }
 
         currentEnemy = currentDungeon.NextMonster();
+        currentEnemyModel = GameObject.Instantiate(currentEnemy);
+        currentEnemyOutline = GameObject.Instantiate(currentEnemy);
+
         currentState = GameState.CreatingScene;
     }
 
     private void CreateScene()
     {
-        // TODO
-
+        // Enemy OUTLINE
         currentEnemy.SetActive(true);
+        currentEnemy.transform.parent = SceneGenerator.OutlinedModelSlot.transform;
+        currentEnemy.transform.localPosition = new Vector3(0, 0, currentEnemy.transform.localPosition.z);
+
+        ColorableInstance colorableInstance = currentEnemy.GetComponent<ColorableInstance>();
+        colorableInstance.MakeColoredModel();
+
+        SceneGenerator.AssignDungeonBackground(currentDungeon.DungeonConstants.background);
+
+        // ENEMY ColoredModel
+        currentEnemyModel.SetActive(true);
+        currentEnemyModel.transform.parent = SceneGenerator.ModelSlot.transform;
+        currentEnemyModel.transform.localPosition = new Vector3(0, 0, currentEnemy.transform.localPosition.z);
+
+        colorableInstance = currentEnemyModel.GetComponent<ColorableInstance>();
+        colorableInstance.MakeModel();
+
+        
+
         currentState = GameState.PickingSection;
         alreadySetupBeforePicking = false;
     }

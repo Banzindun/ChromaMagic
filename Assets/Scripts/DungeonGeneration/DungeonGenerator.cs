@@ -14,6 +14,7 @@ public class DungeonGenerator{
         this.dungeonConstants = dungeonConstants;
         
         dungeon = new Dungeon();
+        dungeon.DungeonConstants = dungeonConstants;
         dungeon.Difficulty = dungeonConstants.DifficultyModifier;
 
         GenerateMonsters();

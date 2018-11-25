@@ -20,7 +20,7 @@ public class ColorableInstance : MonoBehaviour {
 
     void Start()
     {
-        SectionHolders = new ColorableSectionInstance[Colorable.Sections.Length];
+        
     }
 
 
@@ -93,7 +93,7 @@ public class ColorableInstance : MonoBehaviour {
         for (int i = 0; i < SectionHolders.Length; i++)
         {
             SpriteRenderer spriteRenderer = SectionHolders[i].GetComponent<SpriteRenderer>();
-            spriteRenderer.enabled = false;
+            spriteRenderer.enabled = true;
         }
     }
 
@@ -105,7 +105,7 @@ public class ColorableInstance : MonoBehaviour {
         ColorSet randomColorSet = GetRandomColorSet();
         for (int i = 0; i < SectionHolders.Length; i++)
         {
-            SectionHolders[i].SelectedColor = randomColorSet.colors[i];
+            SectionHolders[i].FinalColor = randomColorSet.colors[i];
         }
     }
 }
