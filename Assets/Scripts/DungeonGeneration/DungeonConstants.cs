@@ -13,4 +13,6 @@ public class DungeonConstants : ScriptableObject {
     public Colorable[] Colorables;
 
     public Sprite background;
+
+    public float ScoreMultiplier;
 }

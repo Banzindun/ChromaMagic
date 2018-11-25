@@ -30,5 +30,5 @@ MonoBehaviour:
     - {r: 0.8018868, g: 0.79082924, b: 0.14751692, a: 0}
     - {r: 0.2622375, g: 0.7830189, b: 0.5869225, a: 0}
   ModelScale: {x: 7, y: 7, z: 0}
-  EnvironmentScale: {x: 2, y: 2, z: 0}
-  YEnvironmentOffset: -11
+  EnvironmentScale: {x: 10, y: 10, z: 0}
+  YEnvironmentOffset: -32.7

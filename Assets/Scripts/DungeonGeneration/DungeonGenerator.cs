@@ -16,7 +16,7 @@ public class DungeonGenerator{
         dungeon = new Dungeon();
         dungeon.DungeonConstants = dungeonConstants;
         dungeon.Difficulty = dungeonConstants.DifficultyModifier;
-
+        dungeon.ScoreMultiplier = dungeonConstants.ScoreMultiplier;
         GenerateMonsters();
 
         return dungeon;

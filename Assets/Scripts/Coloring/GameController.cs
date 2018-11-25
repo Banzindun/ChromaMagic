@@ -34,12 +34,41 @@ public class GameController : MonoBehaviour
 
     private Dungeon currentDungeon = null;
     public DungeonConstants[] Dungeons;
-    private int currentDungeonIndex;
+    public int CurrentDungeonIndex;
     public int MaxLevels;
 
+    
     private MonsterHolder currentMonsterHolder;
 
     public SceneGenerator SceneGenerator;
+
+    private ScoreController scoreController;
+
+    private PlayerHealth playerHealth;
+
+    private float score;
+
+    public float Score {
+        get
+        {
+            return score;
+
+        }
+        set
+        {
+            score = value;
+
+            // Update the score
+            scoreController.UpdateScore();
+        }
+    }
+
+    public int Health{
+        get;
+        set;
+    }
+
+
 
     private void Awake()
     {
@@ -48,8 +77,8 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-
-
+        playerHealth = GetComponent<PlayerHealth>();
+        scoreController = GetComponent<ScoreController>();
         sectionSelector = GetComponent<SectionSelector>();
         timer.Reset();
         currentState = GameState.Generating;
@@ -97,7 +126,7 @@ public class GameController : MonoBehaviour
 
     private void Generate()
     {
-        if (currentDungeonIndex == MaxLevels)
+        if (CurrentDungeonIndex == MaxLevels)
         {
             // The player has won 
             YouHaveWon();
@@ -107,8 +136,8 @@ public class GameController : MonoBehaviour
 
         DungeonGenerator dungeonGenerator = new DungeonGenerator();
 
-        currentDungeon = dungeonGenerator.GenerateDungeon(Dungeons[currentDungeonIndex]);
-        currentDungeonIndex++;
+        currentDungeon = dungeonGenerator.GenerateDungeon(Dungeons[CurrentDungeonIndex]);
+        CurrentDungeonIndex++;
 
         // Reset scene generator
         SceneGenerator.Reset();
@@ -205,5 +234,17 @@ public class GameController : MonoBehaviour
         IsDoingColoring = false;
         alreadySetupBeforeColoring = false;
         colorWheel.Deactivate();
+    }
+
+    // Called when the player should loose health
+    public void LooseHealth()
+    {
+        Debug.Log("Player has lost health!!");
+        playerHealth.LooseHealth();
+
+        if (playerHealth.IsDead())
+        {
+            Debug.Log("I have lost the game. FUCK.");
+        }
     }
 }
