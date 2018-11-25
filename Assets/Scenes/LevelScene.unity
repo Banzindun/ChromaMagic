@@ -1320,7 +1320,7 @@ Prefab:
         type: 2}
       propertyPath: Dungeons.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 69c2e1b06bf56ec4c9d325f5028adcce,
+      objectReference: {fileID: 11400000, guid: 22731712febff374b8b6fa5b1d5ac6a6,
         type: 2}
     - target: {fileID: 114651908966810410, guid: 12125c8519c38b94e8e962c01571e71a,
         type: 2}
@@ -1348,7 +1348,7 @@ Prefab:
     - target: {fileID: 114651908966810410, guid: 12125c8519c38b94e8e962c01571e71a,
         type: 2}
       propertyPath: MaxLevels
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -1580,7 +1580,7 @@ MonoBehaviour:
   - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
   - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
   - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
-  BaseHealth: 5
+  BaseHealth: 1
   HealthOffset: 10
 --- !u!1 &1561034177
 GameObject:
