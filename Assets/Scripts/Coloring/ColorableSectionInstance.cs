@@ -7,6 +7,8 @@ public class ColorableSectionInstance : MonoBehaviour {
 
     public ColorableSection ColorableSection;
 
+    public ColorSet MonsterColorSet;
+
     public Color SelectedColor;
 
     public Color FinalColor;

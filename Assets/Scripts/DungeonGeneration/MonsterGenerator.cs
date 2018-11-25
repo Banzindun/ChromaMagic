@@ -110,7 +110,7 @@ public class MonsterGenerator {
 
             layerObjects[i] = gameObject;
         }
-
+        
         colorableInstance.InitializeSectionInstances(sectionInstances.ToArray());
     }
 

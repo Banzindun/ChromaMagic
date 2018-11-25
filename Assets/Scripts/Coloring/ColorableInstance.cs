@@ -13,6 +13,8 @@ public class ColorableInstance : MonoBehaviour {
 
     public Colorable Colorable;
 
+    public ColorSet InstanceColorSet;
+
     public ColorableSectionInstance[] SectionHolders;
 
     public SpriteRenderer OutlineLayer;
@@ -96,6 +98,7 @@ public class ColorableInstance : MonoBehaviour {
 
         // Get random color set and assign the colors to the sections
         ColorSet randomColorSet = GetRandomColorSet();
+        InstanceColorSet = randomColorSet;
         for (int i = 0; i < SectionHolders.Length; i++)
         {
             SectionHolders[i].FinalColor = randomColorSet.colors[i];
