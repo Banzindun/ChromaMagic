@@ -164,17 +164,19 @@ public class ColorableInstance : MonoBehaviour {
         }
     }
 
-    public void CalculateScore() {
+    public void CalculateScore(int coloredSections) {
         int hits = getHits();
 
         GameController gameController = GameController.Instance;
 
         float scoreMultiplier = gameController.Dungeons[gameController.CurrentDungeonIndex - 1].ScoreMultiplier;
 
-        if (hits == 0) {
+        if (hits == 0)
             GameController.Instance.LooseHealth();
-        }
-        else {
+        else 
+        {
+            if(coloredSections != SectionHolders.Length)
+                GameController.Instance.LooseHealth();
             GameController.Instance.Score += (hits + GameController.Instance.timer.PercentLeft) * scoreMultiplier;
         }
     }

@@ -316,7 +316,7 @@ public class GameController : MonoBehaviour
 
     private void SetStateAfterFinishedMonster()
     {
-        currentColorableInstance.CalculateScore();
+        currentColorableInstance.CalculateScore(coloredSections);
         Destroy(currentMonsterHolder.MonsterModel);
         Destroy(currentMonsterHolder.MonsterOutlined);
     }
@@ -324,7 +324,15 @@ public class GameController : MonoBehaviour
     private void UpdateWhenTimeIsUp()
     {
         SetStateAfterFinishedMonster();
+        
         currentState = GameState.PickingMonster;
+
+        if (playerHealth.IsDead())
+        {
+            currentState = GameState.Dead;
+            timer.Reset();
+            colorWheel.Deactivate();
+        }
     }
 
     private void SetStateAfterColoring()

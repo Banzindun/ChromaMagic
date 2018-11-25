@@ -1470,7 +1470,7 @@ MonoBehaviour:
   - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
   - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
   - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
-  BaseHealth: 3
+  BaseHealth: 5
   HealthOffset: 10
 --- !u!1 &1561034177
 GameObject:
