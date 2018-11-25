@@ -25,11 +25,7 @@ public class SectionSelector : MonoBehaviour
     {
         if(IsFinishedSelecting == false)
         {
-            if (Time.time - lastRaycast > raycastCooldown) {
-                DoRaycast();
-
-                lastRaycast = Time.time;
-            }
+            DoRaycast();
         } 
     }
 
