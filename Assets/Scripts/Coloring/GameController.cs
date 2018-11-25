@@ -6,7 +6,6 @@ public class GameController : MonoBehaviour
 {
 
     public static GameController Instance = null;
-   
 
     private enum GameState
     {
@@ -53,8 +52,9 @@ public class GameController : MonoBehaviour
 
     private float score;
 
-
     private ColorableInstance currentColorableInstance = null;
+
+    public float InterruptTime = 0;
 
     public float Score {
         get
@@ -97,6 +97,12 @@ public class GameController : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) {
+            // IF dead or won the game, exit the game
+            if (currentState == GameState.Dead || currentState == GameState.Won) {
+                PauseMenu.GetComponent<PauseMenu>().ExitGame();
+                return;
+            }
+
             PauseMenu.SetActive(true);
             if(currentState == GameState.PickingColor)
             {
@@ -109,7 +115,15 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        if(timer.IsCountingDown)
+        // Check for interruption:
+
+        if (InterruptTime > 0)
+        {
+            InterruptTime -= Time.deltaTime;
+            return;
+        }
+
+        if (timer.IsCountingDown)
             timer.Update();
 
         switch (currentState)
@@ -176,15 +190,27 @@ public class GameController : MonoBehaviour
     public void PlayerHasWon()
     {
         // display some gui saying the number of enemies and/or score and/or health left
+        LabelCreator.Instance.CreateLabelEvent("You have won!!!", float.PositiveInfinity, new Color(0, 1, 0, 1));
     }
 
     private void PickMonster()
     {
         if (!currentDungeon.IsAvailable())
         {
+            if (CurrentDungeonIndex == MaxLevels)
+            {
+                // The player has won 
+                currentState = GameState.Won;
+
+                return; 
+            }
+
             currentState = GameState.Generating;
             timer.Reset();
             colorWheel.Deactivate();
+
+            LabelCreator.Instance.CreateLabelEvent("Next wave!", 3f, new Color(1, 0, 0, 1));
+
             return;
         }
 
@@ -341,6 +367,7 @@ public class GameController : MonoBehaviour
 
         if (playerHealth.IsDead())
         {
+            Debug.Log("Player died.");
             currentState = GameState.Dead;
             timer.Reset();
             colorWheel.Deactivate();
@@ -349,6 +376,13 @@ public class GameController : MonoBehaviour
 
     private void UpdateWhenDead()
     {
+        LabelCreator.Instance.CreateLabelEvent("You died!!!", float.PositiveInfinity, new Color(1, 0, 0, 1));        
         // show some UI, if time maybe a button to retry
+    }
+
+
+    public void Interrupt(float time)
+    {
+        InterruptTime = time;
     }
 }
