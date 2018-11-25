@@ -78,11 +78,11 @@ public class ColorWheel : MonoBehaviour
 
 	void Update()
 	{
-        if (Input.GetMouseButtonUp(MouseButton.Right))
+        if (Input.GetMouseButtonUp(MouseButton.Left))
 		{
 			IsFinishedSelecting = true;
 		}
-		if(Input.GetMouseButton(MouseButton.Right))
+		if(Input.GetMouseButton(MouseButton.Left))
 		{
 			SelectColor();
 			//Cursor.visible = false;

@@ -84,7 +84,7 @@ public class SectionSelector : MonoBehaviour
 
     public void OnSectionSelect(ColorableSectionInstance colorableInstance)
     {
-        if(Input.GetMouseButton(MouseButton.Right))
+        if(Input.GetMouseButton(MouseButton.Left))
         {
             IsFinishedSelecting = true;
             SelectedColorableSectionInstance = colorableInstance;

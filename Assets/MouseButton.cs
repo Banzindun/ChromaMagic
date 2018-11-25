@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseButton
 {
-	public const int Left = 0;
-	public const int Right = 1;
-	public const int Middle = 2;
+	public static readonly int Left = 0;
+	public static readonly int Right = 1;
+	public static readonly int Middle = 2;
 }
