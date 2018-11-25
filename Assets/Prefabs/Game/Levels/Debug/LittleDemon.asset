@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a59a61c17a8fb642a4ac65fd3876188, type: 3}
   m_Name: LittleDemon
   m_EditorClassIdentifier: 
-  NumberOfMonsters: 1
+  NumberOfMonsters: 10
   DifficultyModifier: 0.65
   Colorables:
   - {fileID: 11400000, guid: 84e693a7a04629e48a8592acef464241, type: 2}

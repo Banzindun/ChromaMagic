@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a59a61c17a8fb642a4ac65fd3876188, type: 3}
   m_Name: OrcLevel
   m_EditorClassIdentifier: 
-  NumberOfMonsters: 1
+  NumberOfMonsters: 10
   DifficultyModifier: 0.65
   Colorables:
   - {fileID: 11400000, guid: 147f7c1b55cc4444b97aa8cff248d3a9, type: 2}

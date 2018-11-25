@@ -15,6 +15,5 @@ MonoBehaviour:
   DifficultyModifier: 3
   Colorables:
   - {fileID: 11400000, guid: 46818737ef9b94d4c94c83461db1f54e, type: 2}
-  - {fileID: 11400000, guid: 247a6c96b755a5c48b85e5c248439177, type: 2}
   background: {fileID: 21300000, guid: 564bb2e277be5cd4ab30fda23dc6f602, type: 3}
   ScoreMultiplier: 2
