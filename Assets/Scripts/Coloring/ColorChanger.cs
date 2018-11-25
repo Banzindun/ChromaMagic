@@ -8,7 +8,7 @@ public class ColorChanger : MonoBehaviour {
 
     public void ChangeColor() {
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        NewColor.a = 255;
+        NewColor.a = 170;
         //renderer.material.color = NewColor;
         renderer.color = NewColor;
     }
