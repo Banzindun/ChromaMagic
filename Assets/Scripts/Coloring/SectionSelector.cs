@@ -16,6 +16,11 @@ public class SectionSelector : MonoBehaviour
         IsFinishedSelecting = false;
     }
 
+    public void StopSelecting()
+    {
+        IsFinishedSelecting = true;
+    }
+
     private void Update()
     {
         if(IsFinishedSelecting == false)

@@ -92,7 +92,6 @@ public class GameController : MonoBehaviour
     {
         alreadySetupBeforePicking = true;
         sectionSelector.StartSelecting();
-        timer.StartCountdown(60f);
     }
 
     private void Generate()
@@ -142,10 +141,17 @@ public class GameController : MonoBehaviour
 
         currentState = GameState.PickingSection;
         alreadySetupBeforePicking = false;
+        var colorableInstance = currentMonsterHolder.MonsterOutlined.GetComponent<ColorableInstance>();
+        timer.StartCountdown(colorableInstance.Colorable.BaseTimer * currentDungeon.Difficulty);
     }
 
     private void UpdateWhenPickingSection()
     {
+        if(timer.IsNoTimeLeft)
+        {
+            sectionSelector.StopSelecting();
+            currentState = GameState.TimeIsUp;
+        }
         if (sectionSelector.IsFinishedSelecting)
         {
             currentlySelectedSection = sectionSelector.SelectedColorableSectionInstance;
@@ -157,13 +163,18 @@ public class GameController : MonoBehaviour
     {
         var colorableInstance = currentMonsterHolder.MonsterOutlined.GetComponent<ColorableInstance>();
         alreadySetupBeforeColoring = true;
-        timer.StartCountdown(colorableInstance.Colorable.BaseTimer * currentDungeon.Difficulty);
         colorWheel.Activate(currentlySelectedSection.transform.position);
         colorWheel.InitializeColorPallette(new List<Color>(colorableInstance.InstanceColorSet.colors));
     }
 
     private void UpdateWhenColoring()
     {
+        if (timer.IsNoTimeLeft)
+        {
+            SetStateAfterColoring();
+        currentState = GameState.TimeIsUp;
+        }
+        
         if (colorWheel.IsFinishedSelecting)
         {
             if (currentlySelectedColor != null)
@@ -184,13 +195,7 @@ public class GameController : MonoBehaviour
             colorableInstance.SetColor(currentlySelectedSection.index, currentlySelectedColor.ColorValue);
             colorableInstance.TurnOnLayer(ColorableInstance.LAYER_TYPE.COLORS, currentlySelectedSection.index);
         }
-
-        timer.Update();
-        if (timer.IsNoTimeLeft)
-        {
-            SetStateAfterColoring();
-        currentState = GameState.TimeIsUp;
-        }
+        
     }
 
     private void SetStateAfterColoring()
