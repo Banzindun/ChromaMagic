@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -164,7 +165,43 @@ public class GameController : MonoBehaviour
         var colorableInstance = currentMonsterHolder.MonsterOutlined.GetComponent<ColorableInstance>();
         alreadySetupBeforeColoring = true;
         colorWheel.Activate(currentlySelectedSection.transform.position);
-        colorWheel.InitializeColorPallette(new List<Color>(colorableInstance.InstanceColorSet.colors));
+        List<Color> palette = GenerateColorPalleteFromColorSet(colorableInstance.InstanceColorSet.colors);
+        colorWheel.InitializeColorPalette(palette);
+    }
+
+    private List<Color> GenerateColorPalleteFromColorSet(Color[] colors)
+    {
+        List<Color> palette = new List<Color>();
+        for(int i = 0; i < colors.Length; ++i)
+        {
+            palette.Add(colors[i]);
+            palette.Add(MakeSimiliarColor(colors[i]));
+            palette.Add(MakeSimiliarColor(colors[i]));
+        }
+
+        ShuffleColorPalette(palette);
+        return palette;
+    }
+
+    private Color MakeSimiliarColor(Color color)
+    {
+        float h, s, v;
+        
+        Color.RGBToHSV(color, out h, out s, out v);
+        int sign = UnityEngine.Random.Range(0,1)  == 0 ? -1 : 1;
+        h += sign * (UnityEngine.Random.Range(0f, 0.05f) + 0.05f);
+        return Color.HSVToRGB(h,s,v);
+    }
+
+    private void ShuffleColorPalette(List<Color> palette)
+    {
+        for(int i = 0; i < palette.Count; ++i)
+        {
+            Color tmp = palette[i];
+            int randomIndex = UnityEngine.Random.Range(0, palette.Count);
+            palette[i] = palette[randomIndex];
+            palette[randomIndex] = tmp;
+        }
     }
 
     private void UpdateWhenColoring()
@@ -174,7 +211,7 @@ public class GameController : MonoBehaviour
             SetStateAfterColoring();
         currentState = GameState.TimeIsUp;
         }
-        
+
         if (colorWheel.IsFinishedSelecting)
         {
             if (currentlySelectedColor != null)

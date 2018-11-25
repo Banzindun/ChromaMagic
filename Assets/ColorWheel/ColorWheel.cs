@@ -24,7 +24,7 @@ public class ColorWheel : MonoBehaviour
 		Setup();
 	}
 
-	public void InitializeColorPallette(List<Color> colors)
+	public void InitializeColorPalette(List<Color> colors)
 	{
 		BaseColors = colors;
 		rect = GetComponent<RectTransform>();
