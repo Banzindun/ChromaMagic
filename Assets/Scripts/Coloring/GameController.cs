@@ -163,7 +163,7 @@ public class GameController : MonoBehaviour
     private void SetStateBeforeColoring()
     {
         alreadySetupBeforeColoring = true;
-        //coloringTimer.StartCountdown(currentColorable.BaseTimer * CurrentDifficultyModifier);
+        timer.StartCountdown(currentMonsterHolder.MonsterOutlined.GetComponent<ColorableInstance>().Colorable.BaseTimer * currentDungeon.Difficulty);
         colorWheel.Activate(currentlySelectedSection.transform.position);
         List<Color> palette = GetRandomColorSet();
         colorWheel.InitializeColorPallette(palette);
