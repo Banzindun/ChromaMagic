@@ -57,6 +57,8 @@ public class ColorableInstance : MonoBehaviour {
         {
             SectionHolders[i].UseFinalColor();
         }
+
+        ShowSectionSpriteRenderers();
     }
 
 

@@ -5,77 +5,128 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-		private enum GameState 
-		{
-				Generating,
-				PickingSection,
-				PickingColor,
-		}
+    private enum GameState
+    {
+        Generating,
+        PickingMonster,
+        CreatingScene,
+        PickingSection,
+        PickingColor,
+    }
 
     public Timer timer = null;
     public float CurrentDifficultyModifier = 1f;
     public bool IsDoingColoring = false;
-		public ScriptableColor currentlySelectedColor = null;
+    public ScriptableColor currentlySelectedColor = null;
 
     private bool alreadySetupBeforeColoring = false;
     private ColorWheel colorWheel = null;
-		private SectionSelector sectionSelector = null;
-		private MonsterGenerator monsterGenerator = null;
-		private GameState currentState = GameState.Generating;
-		private ColorableSectionInstance currentlySelectedSection = null;
+    private SectionSelector sectionSelector = null;
+    private MonsterGenerator monsterGenerator = null;
+    private ColorableSectionInstance currentlySelectedSection = null;
     private bool alreadySetupBeforePicking;
+
+    [SerializeField]
+    private GameState currentState = GameState.Generating;
+
+    private Dungeon currentDungeon = null;
+    public DungeonConstants[] Dungeons;
+    private int currentDungeonIndex;
+    public int MaxLevels;
+
+    private GameObject currentEnemy;
 
     void Start()
     {
-				sectionSelector = GetComponent<SectionSelector>();
-				monsterGenerator = GetComponent<MonsterGenerator>();
-				timer.Reset();
-				currentState = GameState.Generating;
+        sectionSelector = GetComponent<SectionSelector>();
+        timer.Reset();
+        currentState = GameState.Generating;
         colorWheel = GameObject.Find("ColorWheel").GetComponent<ColorWheel>();
         colorWheel.Deactivate();
     }
 
     void Update()
     {
-		//	Debug.Log(currentState);
-				switch(currentState)
-				{
-						case GameState.Generating:
-								Generate();
-								break;
-						case GameState.PickingSection:
-								if(alreadySetupBeforePicking == false)
-									SetStateBeforeSectionPicking();
-								UpdateWhenPickingSection();
-								break;
-						case GameState.PickingColor:
-            		if (alreadySetupBeforeColoring == false)
-            		    SetStateBeforeColoring();
-            		UpdateWhenColoring();
-								break;
-				}
+        switch (currentState)
+        {
+            case GameState.Generating:
+                Generate();
+                break;
+            case GameState.PickingMonster:
+                PickMonster();
+                break;
+            case GameState.CreatingScene:
+                CreateScene();
+                break;
+            case GameState.PickingSection:
+                if (alreadySetupBeforePicking == false)
+                    SetStateBeforeSectionPicking();
+                UpdateWhenPickingSection();
+                break;
+            case GameState.PickingColor:
+                if (alreadySetupBeforeColoring == false)
+                    SetStateBeforeColoring();
+                UpdateWhenColoring();
+                break;
+        }
     }
 
     private void SetStateBeforeSectionPicking()
     {
-			alreadySetupBeforePicking = true;
-			sectionSelector.StartSelecting();
+        alreadySetupBeforePicking = true;
+        sectionSelector.StartSelecting();
     }
 
     private void Generate()
     {
-				var colorableObject = monsterGenerator.createNewColorableMonster();
-				currentState = GameState.PickingSection;
-        timer.StartCountdown(20f);
+        if (currentDungeonIndex == MaxLevels)
+        {
+            // The player has won 
+            YouHaveWon();
+        }
+
+        DungeonGenerator dungeonGenerator = new DungeonGenerator();
+        Debug.Log(currentDungeonIndex);
+        currentDungeon = dungeonGenerator.GenerateDungeon(Dungeons[currentDungeonIndex]);
+        currentDungeonIndex++;
+
+        currentState = GameState.PickingMonster;
     }
-	
+
+    public void YouHaveWon()
+    {
+
+
+    }
+
+    private void PickMonster()
+    {
+        if (!currentDungeon.IsAvailable())
+        {
+            currentState = GameState.Generating;
+            return;
+        }
+
+        currentEnemy = currentDungeon.NextMonster();
+        currentState = GameState.CreatingScene;
+    }
+
+    private void CreateScene()
+    {
+        // TODO
+
+        currentEnemy.SetActive(true);
+        currentState = GameState.PickingSection;
+        alreadySetupBeforePicking = false;
+    }
+
     private void UpdateWhenPickingSection()
     {
-			  if(sectionSelector.IsFinishedSelecting)
-				{
-						currentlySelectedSection = sectionSelector.SelectedColorableSectionInstance;
-						currentState = GameState.PickingColor;
-				}
+        if (sectionSelector.IsFinishedSelecting)
+        {
+            currentlySelectedSection = sectionSelector.SelectedColorableSectionInstance;
+            currentState = GameState.PickingColor;
+        }
     }
 
     private void SetStateBeforeColoring()
@@ -87,22 +138,22 @@ public class GameController : MonoBehaviour
 
     private void UpdateWhenColoring()
     {
-				if(colorWheel.IsFinishedSelecting)
-				{
-						if(currentlySelectedColor != null)
-						{
-							currentlySelectedSection.SelectedColor = currentlySelectedColor.ColorValue;
-							currentlySelectedSection.UseSelectedColor();
-						}
-						alreadySetupBeforePicking = false;
-						currentState = GameState.PickingSection;
-						colorWheel.Deactivate();
-				}
-				if(currentlySelectedColor != null)
-				{
-					currentlySelectedSection.SelectedColor = currentlySelectedColor.ColorValue;
-					currentlySelectedSection.UseSelectedColor();
-				}
+        if (colorWheel.IsFinishedSelecting)
+        {
+            if (currentlySelectedColor != null)
+            {
+                currentlySelectedSection.SelectedColor = currentlySelectedColor.ColorValue;
+                currentlySelectedSection.UseSelectedColor();
+            }
+            alreadySetupBeforePicking = false;
+            currentState = GameState.PickingSection;
+            colorWheel.Deactivate();
+        }
+        if (currentlySelectedColor != null)
+        {
+            currentlySelectedSection.SelectedColor = currentlySelectedColor.ColorValue;
+            currentlySelectedSection.UseSelectedColor();
+        }
 
         timer.Update();
         if (timer.IsNoTimeLeft)
