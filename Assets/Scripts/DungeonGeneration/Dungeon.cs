@@ -9,25 +9,29 @@ public class Dungeon {
 
     public float Difficulty;
 
-    private Queue<GameObject> monsters;
+    private List<MonsterHolder> monsters;
         
     public Dungeon()
     {
-        monsters = new Queue<GameObject>();
+        monsters = new List<MonsterHolder>();
     }
 
     public bool IsAvailable() {
         return monsters.Count > 0;
     }
 
-    public GameObject NextMonster() {
-        return monsters.Dequeue();
+    public MonsterHolder NextMonster() {
+        MonsterHolder monster = monsters[0];
+        monsters.RemoveAt(0);
+        return monster;
     }
 
-    public void AddMonster(GameObject monster) {
-        monsters.Enqueue(monster);
+    public void AddMonster(MonsterHolder monster) {
+        monsters.Add(monster);
     }
 
-
-
+    public MonsterHolder[] GetAllMonsters()
+    {
+        return monsters.ToArray();
+    }
 }

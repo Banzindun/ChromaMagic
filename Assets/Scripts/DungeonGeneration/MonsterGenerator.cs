@@ -12,21 +12,19 @@ public class MonsterGenerator {
         this.dungeonConstants = dungeonConstants;
     }
 
-    
-    public GameObject createNewColorableObject(Colorable colorable) {
-        GameObject colorableObject = new GameObject();
+    public MonsterHolder CreateMonsters() {
+        MonsterHolder monsterHolder = new MonsterHolder();
+        monsterHolder.Init(createNewMonster());
 
-        // Get a random colorable instance
-        ColorableInstance colorableInstance = AddColorableInstance(colorableObject, colorable);
+        ColorableInstance monsterOutlinedColorable = monsterHolder.MonsterOutlined.GetComponent<ColorableInstance>();
+        ColorableInstance SceneMonsterColorable = monsterHolder.SceneMonster.GetComponent<ColorableInstance>();
+        monsterOutlinedColorable.sibling = SceneMonsterColorable;
 
-        InitializeBaseLayers(colorableInstance, colorableObject);
-        InitializeSections(colorableInstance, colorableObject);
-
-        return colorableObject;
+        return monsterHolder;
     }
-
+    
     // Creates new monster from dungeonConstants
-    public GameObject createNewMonster() {
+    private GameObject createNewMonster() {
         GameObject colorableObject = new GameObject();
 
         // Get a random colorable instance

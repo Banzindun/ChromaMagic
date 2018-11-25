@@ -38,9 +38,7 @@ public class GameController : MonoBehaviour
     private int currentDungeonIndex;
     public int MaxLevels;
 
-    private GameObject currentEnemy;
-    private GameObject currentEnemyOutline;
-    private GameObject currentEnemyModel;
+    private MonsterHolder currentMonsterHolder;
 
     public SceneGenerator SceneGenerator;
 
@@ -98,12 +96,18 @@ public class GameController : MonoBehaviour
         {
             // The player has won 
             YouHaveWon();
+
+            return; // EXIT the app
         }
 
         DungeonGenerator dungeonGenerator = new DungeonGenerator();
-        Debug.Log(currentDungeonIndex);
+
         currentDungeon = dungeonGenerator.GenerateDungeon(Dungeons[currentDungeonIndex]);
         currentDungeonIndex++;
+
+        // Reset scene generator
+        SceneGenerator.Reset();
+        SceneGenerator.TryInsertToEnvironment(currentDungeon);
 
         currentState = GameState.PickingMonster;
     }
@@ -122,34 +126,14 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        currentEnemy = currentDungeon.NextMonster();
-        currentEnemyModel = GameObject.Instantiate(currentEnemy);
-        currentEnemyOutline = GameObject.Instantiate(currentEnemy);
+        currentMonsterHolder = currentDungeon.NextMonster();
 
         currentState = GameState.CreatingScene;
     }
 
     private void CreateScene()
     {
-        // Enemy OUTLINE
-        currentEnemy.SetActive(true);
-        currentEnemy.transform.parent = SceneGenerator.OutlinedModelSlot.transform;
-        currentEnemy.transform.localPosition = new Vector3(0, 0, currentEnemy.transform.localPosition.z);
-
-        ColorableInstance colorableInstance = currentEnemy.GetComponent<ColorableInstance>();
-        colorableInstance.MakeColoredModel();
-
-        SceneGenerator.AssignDungeonBackground(currentDungeon.DungeonConstants.background);
-
-        // ENEMY ColoredModel
-        currentEnemyModel.SetActive(true);
-        currentEnemyModel.transform.parent = SceneGenerator.ModelSlot.transform;
-        currentEnemyModel.transform.localPosition = new Vector3(0, 0, currentEnemy.transform.localPosition.z);
-
-        colorableInstance = currentEnemyModel.GetComponent<ColorableInstance>();
-        colorableInstance.MakeModel();
-
-        
+        SceneGenerator.InsertMonsters(currentMonsterHolder);
 
         currentState = GameState.PickingSection;
         alreadySetupBeforePicking = false;
