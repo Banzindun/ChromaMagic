@@ -15,7 +15,9 @@ public class GameController : MonoBehaviour
         CreatingScene,
         PickingSection,
         PickingColor,
-        TimeIsUp
+        TimeIsUp,
+        Dead,
+        Won
     }
 
     public Timer timer = null;
@@ -29,6 +31,7 @@ public class GameController : MonoBehaviour
     private MonsterGenerator monsterGenerator = null;
     private ColorableSectionInstance currentlySelectedSection = null;
     private bool alreadySetupBeforePicking;
+    private int coloredSections = 0;
 
     [SerializeField]
     private GameState currentState = GameState.Generating;
@@ -48,6 +51,9 @@ public class GameController : MonoBehaviour
     private PlayerHealth playerHealth;
 
     private float score;
+
+
+    private ColorableInstance currentColorableInstance = null;
 
     public float Score {
         get
@@ -94,14 +100,14 @@ public class GameController : MonoBehaviour
 
         switch (currentState)
         {
-            case GameState.Generating:
+            case GameState.Generating: 
                 Generate();
                 break;
-            case GameState.PickingMonster:
+            case GameState.PickingMonster: 
                 PickMonster();
                 break;
-            case GameState.CreatingScene:
-                CreateScene();
+            case GameState.CreatingScene: 
+                CreateScene();  
                 break;
             case GameState.PickingSection:
                 if (alreadySetupBeforePicking == false)
@@ -114,6 +120,10 @@ public class GameController : MonoBehaviour
                 UpdateWhenColoring();
                 break;
             case GameState.TimeIsUp:
+                UpdateWhenTimeIsUp();
+                break;
+            case GameState.Dead:
+                UpdateWhenDead();
                 break;
         }
     }
@@ -161,6 +171,8 @@ public class GameController : MonoBehaviour
         }
 
         currentMonsterHolder = currentDungeon.NextMonster();
+        currentColorableInstance = currentMonsterHolder.MonsterOutlined.GetComponent<ColorableInstance>();
+        coloredSections = 0;
 
         currentState = GameState.CreatingScene;
     }
@@ -171,8 +183,7 @@ public class GameController : MonoBehaviour
 
         currentState = GameState.PickingSection;
         alreadySetupBeforePicking = false;
-        var colorableInstance = currentMonsterHolder.MonsterOutlined.GetComponent<ColorableInstance>();
-        timer.StartCountdown(colorableInstance.Colorable.BaseTimer * currentDungeon.Difficulty);
+        timer.StartCountdown(currentColorableInstance.Colorable.BaseTimer * currentDungeon.Difficulty);
     }
 
     private void UpdateWhenPickingSection()
@@ -191,10 +202,9 @@ public class GameController : MonoBehaviour
 
     private void SetStateBeforeColoring()
     {
-        var colorableInstance = currentMonsterHolder.MonsterOutlined.GetComponent<ColorableInstance>();
         alreadySetupBeforeColoring = true;
         colorWheel.Activate(currentlySelectedSection.transform.position);
-        List<Color> palette = GenerateColorPalleteFromColorSet(colorableInstance.InstanceColorSet.colors);
+        List<Color> palette = GenerateColorPalleteFromColorSet(currentColorableInstance.InstanceColorSet.colors);
         colorWheel.InitializeColorPalette(palette);
     }
 
@@ -258,23 +268,43 @@ public class GameController : MonoBehaviour
         {
             if (currentlySelectedColor != null)
             {
-                ColorableInstance colorableInstance = currentlySelectedSection.GetComponentInParent<ColorableInstance>();
-                colorableInstance.SetColor(currentlySelectedSection.index, currentlySelectedColor.ColorValue);
-                colorableInstance.TurnOnLayer(ColorableInstance.LAYER_TYPE.COLORS, currentlySelectedSection.index);
+                currentColorableInstance.SetColor(currentlySelectedSection.index, currentlySelectedColor.ColorValue);
+                currentColorableInstance.TurnOnLayer(ColorableInstance.LAYER_TYPE.COLORS, currentlySelectedSection.index);
+            }
 
+            ++coloredSections;
+            Debug.Log(currentColorableInstance.SectionHolders.Length);
+            if(coloredSections == currentColorableInstance.SectionHolders.Length)
+            {
+                SetStateAfterFinishedMonster();
+                currentState = GameState.PickingMonster;
+                return;
             }
             alreadySetupBeforePicking = false;
             currentState = GameState.PickingSection;
             SetStateAfterColoring();
+            return;
         }
 
         if (currentlySelectedColor != null)
         {
-            ColorableInstance colorableInstance = currentlySelectedSection.GetComponentInParent<ColorableInstance>();
-            colorableInstance.SetColor(currentlySelectedSection.index, currentlySelectedColor.ColorValue);
-            colorableInstance.TurnOnLayer(ColorableInstance.LAYER_TYPE.COLORS, currentlySelectedSection.index);
+            currentlySelectedSection.GetComponentInParent<ColorableInstance>();
+            currentColorableInstance.SetColor(currentlySelectedSection.index, currentlySelectedColor.ColorValue);
+            currentColorableInstance.TurnOnLayer(ColorableInstance.LAYER_TYPE.COLORS, currentlySelectedSection.index);
         }
         
+    }
+
+    private void SetStateAfterFinishedMonster()
+    {
+        currentColorableInstance.CalculateScore();
+        Destroy(currentMonsterHolder.MonsterModel);
+        Destroy(currentMonsterHolder.MonsterOutlined);
+    }
+
+    private void UpdateWhenTimeIsUp()
+    {
+        LooseHealth();
     }
 
     private void SetStateAfterColoring()
@@ -287,12 +317,16 @@ public class GameController : MonoBehaviour
     // Called when the player should loose health
     public void LooseHealth()
     {
-        Debug.Log("Player has lost health!!");
         playerHealth.LooseHealth();
 
         if (playerHealth.IsDead())
         {
-            Debug.Log("I have lost the game. FUCK.");
+            currentState = GameState.Dead;
         }
+    }
+
+    private void UpdateWhenDead()
+    {
+        // show some UI, if time maybe a button to retry
     }
 }

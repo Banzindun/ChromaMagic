@@ -12,6 +12,7 @@ public class Dungeon {
     public float Difficulty;
 
     private List<MonsterHolder> monsters;
+    private int nextMonsterIndex = 0;
         
     public Dungeon()
     {
@@ -19,12 +20,12 @@ public class Dungeon {
     }
 
     public bool IsAvailable() {
-        return monsters.Count > 0;
+        return  nextMonsterIndex < monsters.Count;
     }
 
     public MonsterHolder NextMonster() {
-        MonsterHolder monster = monsters[0];
-        monsters.RemoveAt(0);
+        MonsterHolder monster = monsters[nextMonsterIndex];
+        nextMonsterIndex++;
         return monster;
     }
 

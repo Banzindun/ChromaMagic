@@ -835,7 +835,7 @@ Prefab:
         type: 2}
       propertyPath: Dungeons.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: f3d236963e4f99946bee77a735166904,
+      objectReference: {fileID: 11400000, guid: 69c2e1b06bf56ec4c9d325f5028adcce,
         type: 2}
     m_RemovedComponents:
     - {fileID: 0}

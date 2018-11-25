@@ -168,7 +168,7 @@ public class ColorableInstance : MonoBehaviour {
 
         GameController gameController = GameController.Instance;
 
-        float scoreMultiplier = gameController.Dungeons[gameController.CurrentDungeonIndex].ScoreMultiplier;
+        float scoreMultiplier = gameController.Dungeons[gameController.CurrentDungeonIndex - 1].ScoreMultiplier;
 
         if (hits == 0)
             GameController.Instance.LooseHealth();
