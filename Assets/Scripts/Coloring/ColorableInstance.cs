@@ -173,7 +173,7 @@ public class ColorableInstance : MonoBehaviour {
         if (hits == 0)
             GameController.Instance.LooseHealth();
         else {
-            GameController.Instance.Score += (((float) SectionHolders.Length/hits) * scoreMultiplier);
+            GameController.Instance.Score += hits * scoreMultiplier;
         }
     }
 
