@@ -420,9 +420,9 @@ MonoBehaviour:
   BackgroundSlot: {fileID: 1599812574}
   ModelSlot: {fileID: 310258495}
   OutlinedModelSlot: {fileID: 1561034177}
-  YEnvironmentOffset: -25
-  MinXEnvironmentOffset: -40
-  MaxXEnvironmentOffset: 40
+  YEnvironmentOffset: -19
+  MinXEnvironmentOffset: -25
+  MaxXEnvironmentOffset: 25
 --- !u!224 &280067774 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224591212708824858, guid: d5c79f8144afe584d9294da81e679383,
