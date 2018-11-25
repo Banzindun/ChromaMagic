@@ -11,10 +11,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab5133d1448c844d80335642cac6af6, type: 3}
   m_Name: Ghost
   m_EditorClassIdentifier: 
-  OutlineLayer: {fileID: 0}
-  DetailsLayer: {fileID: 0}
-  EffectsLayer: {fileID: 0}
+  OutlineLayer: {fileID: 21300000, guid: ef35e9c6022f18b49bf40592576c8cc0, type: 3}
+  DetailsLayer: {fileID: 21300000, guid: 7592a7da3e9b64a4cb623710a7087660, type: 3}
+  EffectsLayer: {fileID: 21300000, guid: be6c6570687fd014db68b6063bdcb7fd, type: 3}
   AdditionalLayers: []
-  BaseTimer: 0
-  Sections: []
-  ColorSets: []
+  BaseTimer: 10
+  Sections:
+  - {fileID: 11400000, guid: 672fb6cbca3b1584bba150a102f95542, type: 2}
+  - {fileID: 11400000, guid: 5a48cb29267c7bf4ca2a28422b79ff9a, type: 2}
+  - {fileID: 11400000, guid: 8db32da1f4761d64296a9576275f3cae, type: 2}
+  ColorSets:
+  - colors:
+    - {r: 0.8962264, g: 0.25787643, b: 0.25787643, a: 0}
+    - {r: 0.26415092, g: 0.23300104, b: 0.23300104, a: 0}
+    - {r: 0.8113208, g: 0.27748892, b: 0.08802067, a: 0}
+  - colors:
+    - {r: 0.12019401, g: 0.4282671, b: 0.6886792, a: 0}
+    - {r: 0.33962262, g: 0.27714488, b: 0.27714488, a: 0}
+    - {r: 0.8301887, g: 0.29545078, b: 0.06657174, a: 0}
+  ModelScale: {x: 4, y: 4, z: 0}
+  EnvironmentScale: {x: 1, y: 1, z: 0}
+  YEnvironmentOffset: -14.27

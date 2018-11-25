@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b1892c241cdd74ab828f8459b4e1b0, type: 3}
   m_Name: Pumpkin
   m_EditorClassIdentifier: 
-  ColorLayer: {fileID: 0}
-  SelectionLayer: {fileID: 0}
+  ColorLayer: {fileID: 21300000, guid: 4150e6b4fc4f2014b8dd0a030bab5411, type: 3}
+  SelectionLayer: {fileID: 21300000, guid: 3388a5144e77dfc489f73612cb0d1db0, type: 3}
