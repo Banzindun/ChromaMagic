@@ -204,21 +204,34 @@ public class GameController : MonoBehaviour
         for(int i = 0; i < colors.Length; ++i)
         {
             palette.Add(colors[i]);
-            palette.Add(MakeSimiliarColor(colors[i]));
-            palette.Add(MakeSimiliarColor(colors[i]));
+            palette.Add(MakeSimiliarColor(colors[i], 1));
+            palette.Add(MakeSimiliarColor(colors[i], -1));
         }
 
         ShuffleColorPalette(palette);
         return palette;
     }
 
-    private Color MakeSimiliarColor(Color color)
+    private Color MakeSimiliarColor(Color color, int sign)
     {
         float h, s, v;
         
         Color.RGBToHSV(color, out h, out s, out v);
-        int sign = UnityEngine.Random.Range(0,1)  == 0 ? -1 : 1;
-        h += sign * (UnityEngine.Random.Range(0f, 0.05f) + 0.05f);
+        float sample = UnityEngine.Random.Range(0f, 0.1f) + 0.10f;
+        if(s < 0.5f || v < 0.5f)
+        {
+            v += sign * sample;
+            s += sign * sample;
+        }
+        else
+        {
+            h += sign * sample;
+            s += sign * sample;
+        }
+
+        h = Mathf.Clamp(h,0f,1f);
+        s = Mathf.Clamp(s,0f,1f);
+        v = Mathf.Clamp(v,0f,1f);
         return Color.HSVToRGB(h,s,v);
     }
 

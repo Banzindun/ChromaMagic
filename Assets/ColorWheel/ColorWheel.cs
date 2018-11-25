@@ -58,7 +58,6 @@ public class ColorWheel : MonoBehaviour
 		GameObject selection = Instantiate(ColorWheelSelectionPrefab, transform);
 		ColorPickable pickable = selection.GetComponent<ColorPickable>();
 		pickable.ColorValue = color;
-		pickable.ColorValue.a = 1f;
 		pickables.Add(pickable);
 		
 		return selection;
