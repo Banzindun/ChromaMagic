@@ -309,7 +309,6 @@ public class GameController : MonoBehaviour
 
     private void UpdateWhenTimeIsUp()
     {
-        LooseHealth();
         SetStateAfterFinishedMonster();
         currentState = GameState.PickingMonster;
     }
@@ -329,6 +328,8 @@ public class GameController : MonoBehaviour
         if (playerHealth.IsDead())
         {
             currentState = GameState.Dead;
+            timer.Reset();
+            colorWheel.Deactivate();
         }
     }
 
