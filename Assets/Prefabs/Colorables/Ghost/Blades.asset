@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b1892c241cdd74ab828f8459b4e1b0, type: 3}
   m_Name: Blades
   m_EditorClassIdentifier: 
-  ColorLayer: {fileID: 0}
-  SelectionLayer: {fileID: 0}
+  ColorLayer: {fileID: 21300000, guid: 269c8b0ba79474a47a6384c86d13aa07, type: 3}
+  SelectionLayer: {fileID: 21300000, guid: 4444eb35e95430448abb24aa3e3d0aec, type: 3}
