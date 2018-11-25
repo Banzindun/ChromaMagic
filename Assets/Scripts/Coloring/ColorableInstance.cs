@@ -22,6 +22,7 @@ public class ColorableInstance : MonoBehaviour {
     public SpriteRenderer DetailsLayer;
 
     public SpriteRenderer EffectsLayer;
+    public Timer drawingTimer = null;
 
     public int ColoredSections = 0;
 
@@ -174,7 +175,7 @@ public class ColorableInstance : MonoBehaviour {
             GameController.Instance.LooseHealth();
         }
         else {
-            GameController.Instance.Score += hits * scoreMultiplier;
+            GameController.Instance.Score += (hits + GameController.Instance.timer.PercentLeft) * scoreMultiplier;
         }
     }
 

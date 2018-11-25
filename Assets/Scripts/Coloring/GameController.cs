@@ -98,6 +98,13 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             PauseMenu.SetActive(true);
+            if(currentState == GameState.PickingColor)
+            {
+                colorWheel.Deactivate();
+                alreadySetupBeforePicking = false;
+                alreadySetupBeforeColoring = false;
+                currentState = GameState.PickingSection;
+            }
             gameObject.SetActive(false);
             return;
         }

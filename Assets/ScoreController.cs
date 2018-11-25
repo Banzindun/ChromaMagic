@@ -16,7 +16,7 @@ public class ScoreController : MonoBehaviour {
 
     public void UpdateScore() {
         float score = GameController.Instance.Score;
-        text.text = "" + score;
+        text.text = "" + (int)score;
     }
 
 }
