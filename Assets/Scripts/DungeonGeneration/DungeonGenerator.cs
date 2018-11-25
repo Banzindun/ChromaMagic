@@ -14,6 +14,7 @@ public class DungeonGenerator{
         this.dungeonConstants = dungeonConstants;
         
         dungeon = new Dungeon();
+        dungeon.DungeonConstants = dungeonConstants;
         dungeon.Difficulty = dungeonConstants.DifficultyModifier;
 
         GenerateMonsters();
@@ -29,9 +30,10 @@ public class DungeonGenerator{
 
         for (int i = 0; i < enemies; i++)
         {
-            GameObject monster = monsterGenerator.createNewMonster();
-            monster.SetActive(false);
-            dungeon.AddMonster(monster);            
+            MonsterHolder monsterHolder = monsterGenerator.CreateMonsters();
+            monsterHolder.Deactivate();
+            
+            dungeon.AddMonster(monsterHolder);            
         }        
     }
 

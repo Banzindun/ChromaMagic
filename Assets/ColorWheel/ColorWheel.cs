@@ -38,7 +38,7 @@ public class ColorWheel : MonoBehaviour
 		pickables.Clear();
 
 		float currentAngle = 0.0f;
-		float angleIncrement = 360f / (float)BaseColors.Count;
+		float angleIncrement = 360f / (float) BaseColors.Count;
 		foreach(Color color in BaseColors)
 		{
 			GameObject selection = GenerateColorWheelSelection(color);
@@ -66,7 +66,9 @@ public class ColorWheel : MonoBehaviour
 
 	public void Activate(Vector3 originalMousePosition)
 	{
-	 	IsFinishedSelecting = false;
+        originalCursorLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
+        IsFinishedSelecting = false;
 		gameObject.SetActive(true);
 	}
 
@@ -77,7 +79,7 @@ public class ColorWheel : MonoBehaviour
 
 	void Update()
 	{
-		if(Input.GetMouseButtonUp(MouseButton.Right))
+        if (Input.GetMouseButtonUp(MouseButton.Right))
 		{
 			IsFinishedSelecting = true;
 		}
@@ -99,7 +101,9 @@ public class ColorWheel : MonoBehaviour
 
     private void SelectColor()
     {
-		Vector3 mouseDirection = Vector3.Normalize(Input.mousePosition - originalCursorLocation);
+        Vector3 mouseDirection = Vector3.Normalize(Camera.main.ScreenToWorldPoint(Input.mousePosition) - originalCursorLocation);
+        
+        //Vector3 mouseDirection = Vector3.Normalize(new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0));
 		float angle = AngleBetweenVectors(mouseDirection, Vector3.up);
 		float from0To360 = angle < 0f ? 360f + angle : angle;
 		cursor.transform.localPosition = Quaternion.Euler(0, 0, from0To360) * new Vector3(0, rect.sizeDelta.x / 3f, 0);;

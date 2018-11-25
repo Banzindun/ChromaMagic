@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+
+    public static GameController Instance = null;
+   
+
     private enum GameState
     {
         Generating,
@@ -33,10 +37,19 @@ public class GameController : MonoBehaviour
     private int currentDungeonIndex;
     public int MaxLevels;
 
-    private GameObject currentEnemy;
+    private MonsterHolder currentMonsterHolder;
+
+    public SceneGenerator SceneGenerator;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
+
+
         sectionSelector = GetComponent<SectionSelector>();
         timer.Reset();
         currentState = GameState.Generating;
@@ -88,12 +101,18 @@ public class GameController : MonoBehaviour
         {
             // The player has won 
             YouHaveWon();
+
+            return; // EXIT the app
         }
 
         DungeonGenerator dungeonGenerator = new DungeonGenerator();
-        Debug.Log(currentDungeonIndex);
+
         currentDungeon = dungeonGenerator.GenerateDungeon(Dungeons[currentDungeonIndex]);
         currentDungeonIndex++;
+
+        // Reset scene generator
+        SceneGenerator.Reset();
+        SceneGenerator.TryInsertToEnvironment(currentDungeon);
 
         currentState = GameState.PickingMonster;
     }
@@ -112,22 +131,22 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        currentEnemy = currentDungeon.NextMonster();
+        currentMonsterHolder = currentDungeon.NextMonster();
+
         currentState = GameState.CreatingScene;
     }
 
     private void CreateScene()
     {
-        // TODO
+        SceneGenerator.InsertMonsters(currentMonsterHolder);
 
-        currentEnemy.SetActive(true);
         currentState = GameState.PickingSection;
         alreadySetupBeforePicking = false;
     }
 
     private List<Color> GetRandomColorSet()
     {
-        var instance = currentEnemy.GetComponent<ColorableInstance>();
+        var instance = currentMonsterHolder.MonsterOutlined.GetComponent<ColorableInstance>();
         int index = UnityEngine.Random.Range(0, instance.Colorable.ColorSets.Length);
         return new List<Color>(instance.Colorable.ColorSets[index].colors);
     }
@@ -156,17 +175,21 @@ public class GameController : MonoBehaviour
         {
             if (currentlySelectedColor != null)
             {
-                currentlySelectedSection.SelectedColor = currentlySelectedColor.ColorValue;
-                currentlySelectedSection.UseSelectedColor();
+                ColorableInstance colorableInstance = currentlySelectedSection.GetComponentInParent<ColorableInstance>();
+                colorableInstance.SetColor(currentlySelectedSection.index, currentlySelectedColor.ColorValue);
+                colorableInstance.TurnOnLayer(ColorableInstance.LAYER_TYPE.COLORS, currentlySelectedSection.index);
+
             }
             alreadySetupBeforePicking = false;
             currentState = GameState.PickingSection;
             SetStateAfterColoring();
         }
+
         if (currentlySelectedColor != null)
         {
-            currentlySelectedSection.SelectedColor = currentlySelectedColor.ColorValue;
-            currentlySelectedSection.UseSelectedColor();
+            ColorableInstance colorableInstance = currentlySelectedSection.GetComponentInParent<ColorableInstance>();
+            colorableInstance.SetColor(currentlySelectedSection.index, currentlySelectedColor.ColorValue);
+            colorableInstance.TurnOnLayer(ColorableInstance.LAYER_TYPE.COLORS, currentlySelectedSection.index);
         }
 
         timer.Update();

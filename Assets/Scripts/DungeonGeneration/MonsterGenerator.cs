@@ -12,21 +12,22 @@ public class MonsterGenerator {
         this.dungeonConstants = dungeonConstants;
     }
 
-    
-    public GameObject createNewColorableObject(Colorable colorable) {
-        GameObject colorableObject = new GameObject();
+    public MonsterHolder CreateMonsters() {
+        MonsterHolder monsterHolder = new MonsterHolder();
+        monsterHolder.Init(createNewMonster());
 
-        // Get a random colorable instance
-        ColorableInstance colorableInstance = AddColorableInstance(colorableObject, colorable);
+        ColorableInstance monsterOutlinedColorable = monsterHolder.MonsterOutlined.GetComponent<ColorableInstance>();
+        ColorableInstance SceneMonsterColorable = monsterHolder.SceneMonster.GetComponent<ColorableInstance>();
+        monsterOutlinedColorable.sibling = SceneMonsterColorable;
 
-        InitializeBaseLayers(colorableInstance, colorableObject);
-        InitializeSections(colorableInstance, colorableObject);
+        SceneMonsterColorable.DisableColliders();
+        monsterHolder.MonsterModel.GetComponent<ColorableInstance>().DisableColliders();
 
-        return colorableObject;
+        return monsterHolder;
     }
-
+    
     // Creates new monster from dungeonConstants
-    public GameObject createNewMonster() {
+    private GameObject createNewMonster() {
         GameObject colorableObject = new GameObject();
 
         // Get a random colorable instance
@@ -72,10 +73,10 @@ public class MonsterGenerator {
             gameObject.AddComponent<ColorChanger>();
 
             // Create the 2D box collider, add it to Collision Sprite Renderer
-            if (i == 0)
+            /*if (i == 0)
             {
                 sectionSelector = gameObject.AddComponent<SectionSelector>();
-            }
+            }*/
 
             // Create sprite renderer
             SpriteRenderer spriteRenderer = gameObject.AddComponent<SpriteRenderer>();

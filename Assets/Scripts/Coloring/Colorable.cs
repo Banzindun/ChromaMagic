@@ -19,6 +19,12 @@ public class Colorable : ScriptableObject {
 
     public ColorSet[] ColorSets;
 
+    public Vector3 ModelScale;
+
+    public Vector3 EnvironmentScale;
+
+    public float YEnvironmentOffset;
+
     public int GetLayersCount() {
         int count = 0;
 

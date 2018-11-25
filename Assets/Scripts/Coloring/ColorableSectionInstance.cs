@@ -13,10 +13,13 @@ public class ColorableSectionInstance : MonoBehaviour {
 
     public bool Colored;
 
+    // Index from the Colorable instance
+    public int index;
+
     // Reference to sprite renderer holding the sprite
     public SpriteRenderer spriteRenderer;
 
-    private void Start()
+    void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -39,7 +42,6 @@ public class ColorableSectionInstance : MonoBehaviour {
 
     public void UseFinalColor()
     {
-
         ColorChanger colorChanger = spriteRenderer.GetComponent<ColorChanger>();
         if (SelectedColor == null)
         {
@@ -59,6 +61,9 @@ public class ColorableSectionInstance : MonoBehaviour {
     // Should return level of realism
     public int IsColorRealistic()
     {
+        
+        
+
         return 0;
     }
 }

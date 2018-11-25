@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorableInstance : MonoBehaviour {
+    public enum LAYER_TYPE {
+        OUTLINE,
+        DETAILS,
+        EFFECTS,
+        COLORS
+    }
+
     public Colorable Colorable;
 
     public ColorableSectionInstance[] SectionHolders;
@@ -14,17 +21,11 @@ public class ColorableInstance : MonoBehaviour {
 
     public SpriteRenderer EffectsLayer;
 
-    public SpriteRenderer[] AdditionalLayers;
-
     public int ColoredSections = 0;
 
-    void Start()
-    {
-        SectionHolders = new ColorableSectionInstance[Colorable.Sections.Length];
-    }
+    public ColorableInstance sibling;
 
-
-    public ColorSet GetRandomColorSet(){
+    public ColorSet GetRandomColorSet() {
         ColorSet[] colorSets = Colorable.ColorSets;
         int index = UnityEngine.Random.Range(0, colorSets.Length);
         return colorSets[index];
@@ -34,10 +35,20 @@ public class ColorableInstance : MonoBehaviour {
         OutlineLayer = GetSpriteRenderer(gameObjects[0]);
         DetailsLayer = GetSpriteRenderer(gameObjects[1]);
         EffectsLayer = GetSpriteRenderer(gameObjects[2]);
+    }
 
-        for (int i = 0;  i < gameObjects.Length - 3; i++){
-            AdditionalLayers[3 + i] = GetSpriteRenderer(gameObjects[i]);
-        }        
+    public void DisableColliders()
+    {
+        ColorableSectionInstance[] instances = GetComponentsInChildren<ColorableSectionInstance>();
+        
+        for (int i = 0; i < instances.Length; i++)
+        {
+            BoxCollider2D[] colliders = instances[i].GetComponentsInChildren<BoxCollider2D>();
+            for (int j = 0; j < colliders.Length; j++)
+            {
+                colliders[j].enabled = false;
+            }
+        }
     }
 
     private SpriteRenderer GetSpriteRenderer(GameObject gameObject) {
@@ -49,52 +60,34 @@ public class ColorableInstance : MonoBehaviour {
 
     public void MakeModel()
     {
-        OutlineLayer.enabled = true;
-        DetailsLayer.enabled = false;
-        EffectsLayer.enabled = false;
+        TurnOnLayer(LAYER_TYPE.OUTLINE);
+        TurnOffLayer(LAYER_TYPE.DETAILS);
+        TurnOffLayer(LAYER_TYPE.EFFECTS);
 
         for (int i = 0; i < SectionHolders.Length; i++)
         {
-            SectionHolders[i].UseFinalColor();
+            SetColor(i, SectionHolders[i].FinalColor);
         }
 
-        ShowSectionSpriteRenderers();
+        TurnOnLayer(LAYER_TYPE.COLORS);
     }
 
 
     public void MakeColoredModel()
     {
-        OutlineLayer.enabled = true;
-        DetailsLayer.enabled = false;
-        EffectsLayer.enabled = false;
-        HideSectionSpriteRenderers();
+        TurnOnLayer(LAYER_TYPE.OUTLINE);
+        TurnOffLayer(LAYER_TYPE.DETAILS);
+        TurnOffLayer(LAYER_TYPE.EFFECTS);
+        TurnOffLayer(LAYER_TYPE.COLORS);
     }
 
 
     public void MakeExtremelyRealistic()
     {
-        DetailsLayer.enabled = true;
-        EffectsLayer.enabled = true;
+        TurnOnLayer(LAYER_TYPE.DETAILS);
+        TurnOnLayer(LAYER_TYPE.EFFECTS);
 
-        ShowSectionSpriteRenderers();
-    }
-
-    public void HideSectionSpriteRenderers()
-    {
-        for (int i = 0; i < SectionHolders.Length; i++)
-        {
-            SpriteRenderer spriteRenderer = SectionHolders[i].GetComponent<SpriteRenderer>();
-            spriteRenderer.enabled = false;
-        }
-    }
-
-    public void ShowSectionSpriteRenderers()
-    {
-        for (int i = 0; i < SectionHolders.Length; i++)
-        {
-            SpriteRenderer spriteRenderer = SectionHolders[i].GetComponent<SpriteRenderer>();
-            spriteRenderer.enabled = false;
-        }
+        TurnOnLayer(LAYER_TYPE.COLORS);
     }
 
     public void InitializeSectionInstances(ColorableSectionInstance[] colorableSectionInstance)
@@ -105,7 +98,58 @@ public class ColorableInstance : MonoBehaviour {
         ColorSet randomColorSet = GetRandomColorSet();
         for (int i = 0; i < SectionHolders.Length; i++)
         {
-            SectionHolders[i].SelectedColor = randomColorSet.colors[i];
+            SectionHolders[i].FinalColor = randomColorSet.colors[i];
+            SectionHolders[i].index = i;
+        }
+    }
+
+    // Set color
+    public void SetColor(int index, Color color) {
+        SectionHolders[index].SelectedColor = color;
+        SectionHolders[index].UseSelectedColor();
+
+        if (sibling != null) {
+            sibling.SetColor(index, color);
+        }
+    }
+
+    public void TurnOffLayer(LAYER_TYPE type) {
+        SwitchLayer(type, false);
+    }
+
+    public void TurnOnLayer(LAYER_TYPE type) {
+        SwitchLayer(type, true);
+    }
+
+    private void SwitchLayer(LAYER_TYPE type, bool bol) {
+        switch (type) {
+            case LAYER_TYPE.DETAILS:
+                DetailsLayer.enabled = bol;
+                break;
+            case LAYER_TYPE.EFFECTS:
+                EffectsLayer.enabled = bol;
+                break;
+            case LAYER_TYPE.OUTLINE:
+                OutlineLayer.enabled = bol;
+                break;
+            case LAYER_TYPE.COLORS:
+                for (int i = 0; i < SectionHolders.Length; i++)
+                {
+                    SectionHolders[i].spriteRenderer.enabled = bol;
+                }
+                break;
+            default:
+                break;
+        }
+
+        if (sibling != null)
+            sibling.SwitchLayer(type, bol);
+    }
+
+    internal void TurnOnLayer(LAYER_TYPE type, int index)
+    {
+        if (type == LAYER_TYPE.COLORS) {
+            SectionHolders[index].spriteRenderer.enabled = true;
         }
     }
 }
