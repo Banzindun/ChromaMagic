@@ -161,8 +161,7 @@ public class GameController : MonoBehaviour
 
     public void PlayerHasWon()
     {
-
-
+        // display some gui saying the number of enemies and/or score and/or health left
     }
 
     private void PickMonster()
@@ -170,6 +169,8 @@ public class GameController : MonoBehaviour
         if (!currentDungeon.IsAvailable())
         {
             currentState = GameState.Generating;
+            timer.Reset();
+            colorWheel.Deactivate();
             return;
         }
 
