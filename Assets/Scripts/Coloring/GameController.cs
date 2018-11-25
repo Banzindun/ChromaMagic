@@ -125,6 +125,9 @@ public class GameController : MonoBehaviour
             case GameState.Dead:
                 UpdateWhenDead();
                 break;
+            case GameState.Won:
+                PlayerHasWon();
+                break;
         }
     }
 
@@ -139,7 +142,7 @@ public class GameController : MonoBehaviour
         if (CurrentDungeonIndex == MaxLevels)
         {
             // The player has won 
-            YouHaveWon();
+            currentState = GameState.Won;
 
             return; // EXIT the app
         }
@@ -156,7 +159,7 @@ public class GameController : MonoBehaviour
         currentState = GameState.PickingMonster;
     }
 
-    public void YouHaveWon()
+    public void PlayerHasWon()
     {
 
 
@@ -192,6 +195,7 @@ public class GameController : MonoBehaviour
         {
             sectionSelector.StopSelecting();
             currentState = GameState.TimeIsUp;
+            return;
         }
         if (sectionSelector.IsFinishedSelecting)
         {
@@ -305,6 +309,8 @@ public class GameController : MonoBehaviour
     private void UpdateWhenTimeIsUp()
     {
         LooseHealth();
+        SetStateAfterFinishedMonster();
+        currentState = GameState.PickingMonster;
     }
 
     private void SetStateAfterColoring()

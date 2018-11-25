@@ -57,7 +57,8 @@ public class SceneGenerator : MonoBehaviour {
         monster.transform.localScale = colorableInstance.Colorable.ModelScale;
 
         
-        SetBlackBackgroundToEnvironmentEnemies();
+        if(EnemiesAssignedToScene == false)
+            SetBlackBackgroundToEnvironmentEnemies();
         SetBlackBackgroundToEnvironmentEnemies(holder);
     }
 
