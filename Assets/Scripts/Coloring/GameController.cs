@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
     public int CurrentDungeonIndex;
     public int MaxLevels;
 
+    public GameObject PauseMenu;
     
     private MonsterHolder currentMonsterHolder;
 
@@ -89,6 +90,12 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            PauseMenu.SetActive(true);
+            gameObject.SetActive(false);
+            return;
+        }
+
         if(timer.IsCountingDown)
             timer.Update();
 

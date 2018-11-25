@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab5133d1448c844d80335642cac6af6, type: 3}
   m_Name: LittleDemon
   m_EditorClassIdentifier: 
-  OutlineLayer: {fileID: 21300000, guid: f7790e01a6d6c4240b5ea078a51bb0c7, type: 3}
-  DetailsLayer: {fileID: 21300000, guid: 370f8f0cdb55445409cbad4329fc844b, type: 3}
+  OutlineLayer: {fileID: 21300000, guid: 497d18c6eb59bd74f9469f4662c7c6bc, type: 3}
+  DetailsLayer: {fileID: 21300000, guid: b4e036faf554b8845999dad5b77e1335, type: 3}
   EffectsLayer: {fileID: 21300000, guid: 64d919a831a5fbd4ba8358bf12136cec, type: 3}
   AdditionalLayers: []
   BaseTimer: 5
