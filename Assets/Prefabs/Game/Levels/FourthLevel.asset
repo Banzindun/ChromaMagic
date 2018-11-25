@@ -9,14 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a59a61c17a8fb642a4ac65fd3876188, type: 3}
-  m_Name: FirstLevel
+  m_Name: FourthLevel
   m_EditorClassIdentifier: 
-  NumberOfMonsters: 3
-  DifficultyModifier: 1
+  NumberOfMonsters: 5
+  DifficultyModifier: 1.5
   Colorables:
-  - {fileID: 11400000, guid: 84e693a7a04629e48a8592acef464241, type: 2}
-  - {fileID: 11400000, guid: 46818737ef9b94d4c94c83461db1f54e, type: 2}
   - {fileID: 11400000, guid: 247a6c96b755a5c48b85e5c248439177, type: 2}
   - {fileID: 11400000, guid: ea4fd622c0cd6cf47810b99e9a6b167a, type: 2}
-  background: {fileID: 21300000, guid: 564bb2e277be5cd4ab30fda23dc6f602, type: 3}
-  ScoreMultiplier: 2
+  - {fileID: 11400000, guid: 46818737ef9b94d4c94c83461db1f54e, type: 2}
+  - {fileID: 11400000, guid: 147f7c1b55cc4444b97aa8cff248d3a9, type: 2}
+  - {fileID: 11400000, guid: 84e693a7a04629e48a8592acef464241, type: 2}
+  background: {fileID: 21300000, guid: 55719bd651d504a4dabf11482604269c, type: 3}
+  ScoreMultiplier: 16

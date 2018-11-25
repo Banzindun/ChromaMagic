@@ -1180,6 +1180,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114651908966810410, guid: 12125c8519c38b94e8e962c01571e71a,
+        type: 2}
+      propertyPath: Dungeons.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4914378021929356, guid: 12125c8519c38b94e8e962c01571e71a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1223,6 +1228,24 @@ Prefab:
       propertyPath: PauseMenu
       value: 
       objectReference: {fileID: 1045832460}
+    - target: {fileID: 114651908966810410, guid: 12125c8519c38b94e8e962c01571e71a,
+        type: 2}
+      propertyPath: Dungeons.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e1627a08998205b409128280c8d25a89,
+        type: 2}
+    - target: {fileID: 114651908966810410, guid: 12125c8519c38b94e8e962c01571e71a,
+        type: 2}
+      propertyPath: Dungeons.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 92d76b3562f70ac4c833124f81efca68,
+        type: 2}
+    - target: {fileID: 114651908966810410, guid: 12125c8519c38b94e8e962c01571e71a,
+        type: 2}
+      propertyPath: Dungeons.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ef0268de08c8d441887873c50a647a8,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 12125c8519c38b94e8e962c01571e71a, type: 2}
@@ -1434,7 +1457,15 @@ MonoBehaviour:
   - {r: 0.9811321, g: 0.124955505, b: 0.124955505, a: 1}
   - {r: 0.35997272, g: 0.745283, b: 0.08788714, a: 1}
   - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
-  BaseHealth: 4
+  - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
+  - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
+  - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
+  - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
+  - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
+  - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
+  - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
+  - {r: 0.3254717, g: 1, b: 0.7562863, a: 1}
+  BaseHealth: 12
   HealthOffset: 10
 --- !u!1 &1561034177
 GameObject:
