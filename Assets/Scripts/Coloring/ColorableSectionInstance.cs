@@ -61,6 +61,9 @@ public class ColorableSectionInstance : MonoBehaviour {
     // Should return level of realism
     public int IsColorRealistic()
     {
+        
+        
+
         return 0;
     }
 }
