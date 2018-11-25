@@ -109,7 +109,9 @@ public class ColorWheel : MonoBehaviour
 		cursor.transform.localPosition = Quaternion.Euler(0, 0, from0To360) * new Vector3(0, rect.sizeDelta.x / 3f, 0);;
 
 		float angleIncrement = 360f / (float) BaseColors.Count;
-		int position = (int)(from0To360 / angleIncrement);
+		float cursorOffset = angleIncrement / 2f;
+		float from0To360Offset = (angle + cursorOffset) < 0f ? 360f + (angle + cursorOffset) : (angle + cursorOffset);
+		int position = (int)(from0To360Offset / angleIncrement);
 		if(Selected != pickables[position])
 		{
 			if(Selected != null)
