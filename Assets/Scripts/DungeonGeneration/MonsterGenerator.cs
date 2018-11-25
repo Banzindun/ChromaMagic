@@ -20,6 +20,9 @@ public class MonsterGenerator {
         ColorableInstance SceneMonsterColorable = monsterHolder.SceneMonster.GetComponent<ColorableInstance>();
         monsterOutlinedColorable.sibling = SceneMonsterColorable;
 
+        SceneMonsterColorable.DisableColliders();
+        monsterHolder.MonsterModel.GetComponent<ColorableInstance>().DisableColliders();
+
         return monsterHolder;
     }
     

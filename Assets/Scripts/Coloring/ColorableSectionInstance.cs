@@ -13,6 +13,9 @@ public class ColorableSectionInstance : MonoBehaviour {
 
     public bool Colored;
 
+    // Index from the Colorable instance
+    public int index;
+
     // Reference to sprite renderer holding the sprite
     public SpriteRenderer spriteRenderer;
 

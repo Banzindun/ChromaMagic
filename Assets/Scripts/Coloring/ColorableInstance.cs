@@ -37,6 +37,15 @@ public class ColorableInstance : MonoBehaviour {
         EffectsLayer = GetSpriteRenderer(gameObjects[2]);
     }
 
+    public void DisableColliders()
+    {
+        Collider[] colliders = GetComponents<Collider>();
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].enabled = false;
+        }
+    }
+
     private SpriteRenderer GetSpriteRenderer(GameObject gameObject) {
         if (gameObject == null)
             return null;
@@ -85,6 +94,7 @@ public class ColorableInstance : MonoBehaviour {
         for (int i = 0; i < SectionHolders.Length; i++)
         {
             SectionHolders[i].FinalColor = randomColorSet.colors[i];
+            SectionHolders[i].index = i;
         }
     }
 
@@ -131,5 +141,10 @@ public class ColorableInstance : MonoBehaviour {
             sibling.SwitchLayer(type, bol);
     }
 
-    
+    internal void TurnOnLayer(LAYER_TYPE type, int index)
+    {
+        if (type == LAYER_TYPE.COLORS) {
+            SectionHolders[index].spriteRenderer.enabled = true;
+        }
+    }
 }

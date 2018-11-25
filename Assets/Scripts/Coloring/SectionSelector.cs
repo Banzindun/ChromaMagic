@@ -9,7 +9,7 @@ public class SectionSelector : MonoBehaviour
     public ColorableSectionInstance SelectedColorableSectionInstance = null;
 
     private float lastRaycast;
-    private float raycastCooldown = 0.8f;
+    private float raycastCooldown = 0.4f;
 
     public void StartSelecting()
     {
@@ -34,11 +34,14 @@ public class SectionSelector : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         hits = Physics2D.GetRayIntersectionAll(ray, 100.0f);
-        Debug.Log(hits.Length);
         if (hits.Length > 0)
         {
             for (int i = 0; i < hits.Length; i++)
             {
+                if (IsFinishedSelecting) {
+                    break;
+                }
+
                 Collider2D collider = hits[i].collider;
                 // First check that the collider has not been selected/painted yet
 
