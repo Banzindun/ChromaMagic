@@ -39,10 +39,15 @@ public class ColorableInstance : MonoBehaviour {
 
     public void DisableColliders()
     {
-        Collider[] colliders = GetComponents<Collider>();
-        for (int i = 0; i < colliders.Length; i++)
+        ColorableSectionInstance[] instances = GetComponentsInChildren<ColorableSectionInstance>();
+        
+        for (int i = 0; i < instances.Length; i++)
         {
-            colliders[i].enabled = false;
+            BoxCollider2D[] colliders = instances[i].GetComponentsInChildren<BoxCollider2D>();
+            for (int j = 0; j < colliders.Length; j++)
+            {
+                colliders[j].enabled = false;
+            }
         }
     }
 

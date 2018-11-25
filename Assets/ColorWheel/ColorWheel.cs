@@ -70,8 +70,6 @@ public class ColorWheel : MonoBehaviour
 
 	void Update()
 	{
-        Debug.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
         if (Input.GetMouseButtonUp(MouseButton.Right))
 		{
 			IsFinishedSelecting = true;

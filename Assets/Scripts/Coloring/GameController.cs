@@ -177,8 +177,9 @@ public class GameController : MonoBehaviour
 
         if (currentlySelectedColor != null)
         {
-            currentlySelectedSection.SelectedColor = currentlySelectedColor.ColorValue;
-            currentlySelectedSection.UseSelectedColor();
+            ColorableInstance colorableInstance = currentlySelectedSection.GetComponentInParent<ColorableInstance>();
+            colorableInstance.SetColor(currentlySelectedSection.index, currentlySelectedColor.ColorValue);
+            colorableInstance.TurnOnLayer(ColorableInstance.LAYER_TYPE.COLORS, currentlySelectedSection.index);
         }
 
         timer.Update();
