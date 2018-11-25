@@ -266,11 +266,12 @@ public class GameController : MonoBehaviour
         if (timer.IsNoTimeLeft)
         {
             SetStateAfterColoring();
-        currentState = GameState.TimeIsUp;
+            currentState = GameState.TimeIsUp;
         }
 
         if (colorWheel.IsFinishedSelecting)
         {
+            SetStateAfterColoring();
             if (currentlySelectedColor != null)
             {
                 currentColorableInstance.SetColor(currentlySelectedSection.index, currentlySelectedColor.ColorValue);
@@ -287,7 +288,6 @@ public class GameController : MonoBehaviour
             }
             alreadySetupBeforePicking = false;
             currentState = GameState.PickingSection;
-            SetStateAfterColoring();
             return;
         }
 
