@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: FourthLevel
   m_EditorClassIdentifier: 
   NumberOfMonsters: 5
-  DifficultyModifier: 1.5
+  DifficultyModifier: 0.7
   Colorables:
   - {fileID: 11400000, guid: 247a6c96b755a5c48b85e5c248439177, type: 2}
   - {fileID: 11400000, guid: ea4fd622c0cd6cf47810b99e9a6b167a, type: 2}

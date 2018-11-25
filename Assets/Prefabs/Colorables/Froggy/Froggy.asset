@@ -15,7 +15,7 @@ MonoBehaviour:
   DetailsLayer: {fileID: 21300000, guid: 06100e449411fe344b2c0f51417b5c96, type: 3}
   EffectsLayer: {fileID: 21300000, guid: ba784b994055bba4bbe40c3568ffaaf1, type: 3}
   AdditionalLayers: []
-  BaseTimer: 10
+  BaseTimer: 9
   Sections:
   - {fileID: 11400000, guid: 42ec464b731950641abafeacddd89016, type: 2}
   - {fileID: 11400000, guid: bc4d0e55db135fb4ea49bff7c6e22e5b, type: 2}
