@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ab5133d1448c844d80335642cac6af6, type: 3}
+  m_Name: Goblin
+  m_EditorClassIdentifier: 
+  OutlineLayer: {fileID: 21300000, guid: 49ef14c8231ab924990468d5c58b782f, type: 3}
+  DetailsLayer: {fileID: 21300000, guid: 5d0429118e2365b41b4cf900d434aa56, type: 3}
+  EffectsLayer: {fileID: 21300000, guid: 9fdc0620d0a914549866bd45b86bfa67, type: 3}
+  AdditionalLayers: []
+  BaseTimer: 10
+  Sections:
+  - {fileID: 11400000, guid: 8cfe8f63514af654a8ad57507c1fc281, type: 2}
+  - {fileID: 11400000, guid: 2a456d879dd3297449625ce3cbbaffa7, type: 2}
+  - {fileID: 11400000, guid: cb2a10b487a53ac4cbc2a10a86e65cd2, type: 2}
+  ColorSets:
+  - colors:
+    - {r: 0.8113208, g: 0.057404764, b: 0.057404764, a: 0}
+    - {r: 0.8301887, g: 0.3485226, b: 0.3485226, a: 0}
+    - {r: 0.13825643, g: 0.8113208, b: 0.08036668, a: 0}
+  - colors:
+    - {r: 0.37779552, g: 0.9150943, b: 0.3237362, a: 0}
+    - {r: 0.8301887, g: 0.121395506, b: 0.121395506, a: 0}
+    - {r: 0.5754717, g: 0.4533197, b: 0.4533197, a: 0}

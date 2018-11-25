@@ -8,10 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a59a61c17a8fb642a4ac65fd3876188, type: 3}
-  m_Name: FirstLevel
+  m_Script: {fileID: 11500000, guid: a3b1892c241cdd74ab828f8459b4e1b0, type: 3}
+  m_Name: Armor
   m_EditorClassIdentifier: 
-  NumberOfMonsters: 3
-  DifficultyModifier: 1
-  Colorables:
-  - {fileID: 11400000, guid: 84e693a7a04629e48a8592acef464241, type: 2}
+  ColorLayer: {fileID: 21300000, guid: 375f22180c5210347a02cdc80127c6ac, type: 3}
+  SelectionLayer: {fileID: 21300000, guid: 41ff5033e8a97804f88d4bcf06a29248, type: 3}
