@@ -36,6 +36,7 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     public void LooseHealth() {
+        SoundManager.Instance.PlaySound("lostHealth");
         Destroy(HealthBars.Pop());
     }
 
