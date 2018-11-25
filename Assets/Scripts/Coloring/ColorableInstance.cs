@@ -155,4 +155,38 @@ public class ColorableInstance : MonoBehaviour {
             SectionHolders[index].spriteRenderer.enabled = true;
         }
     }
+
+    public void CalculateScore() {
+        int hits = getHits();
+
+        GameController gameController = GameController.Instance;
+
+        float scoreMultiplier = gameController.Dungeons[gameController.CurrentDungeonIndex].ScoreMultiplier;
+
+        if (hits == 0)
+            GameController.Instance.LooseHealth();
+        else {
+            GameController.Instance.Score += (((float) SectionHolders.Length/hits) * scoreMultiplier);
+        }
+    }
+
+    private int getHits() {
+        int hits = 0;
+
+        for (int i = 0; i < SectionHolders.Length; i++)
+        {
+            ColorableSectionInstance colorableSectionInstance = SectionHolders[i];
+
+            Color finalColor = colorableSectionInstance.FinalColor;
+            Color selectedColor = colorableSectionInstance.SelectedColor;
+
+            if (finalColor.r == selectedColor.r && finalColor.g == selectedColor.g && finalColor.b == selectedColor.b) {
+                hits++;
+            } else {
+                // Maybe later
+            }
+        }
+
+        return hits;
+    }        
 }

@@ -32,7 +32,6 @@ public class MonsterGenerator {
 
         // Get a random colorable instance
         ColorableInstance colorableInstance = AddRandomColorableInstance(colorableObject);
-        MonsterController monsterController = colorableObject.AddComponent<MonsterController>();
        
         InitializeBaseLayers(colorableInstance, colorableObject);
         InitializeSections(colorableInstance, colorableObject);
@@ -99,8 +98,6 @@ public class MonsterGenerator {
             collisionSpriteRenderer.enabled = false;
             
             BoxCollider2D meshCollider = collisionGameObject.AddComponent<BoxCollider2D>();
-
-            MonsterController monsterController = gameObject.AddComponent<MonsterController>();
 
             // Change the depth
             Vector3 newPosition = gameObject.transform.localPosition;

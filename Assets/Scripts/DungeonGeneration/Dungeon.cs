@@ -7,6 +7,8 @@ public class Dungeon {
 
     public DungeonConstants DungeonConstants;
 
+    public float ScoreMultiplier;
+
     public float Difficulty;
 
     private List<MonsterHolder> monsters;

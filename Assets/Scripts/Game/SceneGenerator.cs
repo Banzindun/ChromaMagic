@@ -9,6 +9,8 @@ public class SceneGenerator : MonoBehaviour {
 
     public Image BackgroundSlot;
 
+    public GameObject BackgroundHolderObject;
+
     public GameObject ModelSlot;
 
     public GameObject OutlinedModelSlot;
@@ -19,6 +21,8 @@ public class SceneGenerator : MonoBehaviour {
 
     public float EnemiesOffset = 30;
 
+    private Dungeon dungeon;
+
     public void Start()
     {
         GameController.Instance.SceneGenerator = this;
@@ -27,10 +31,6 @@ public class SceneGenerator : MonoBehaviour {
     public void AssignDungeonBackground(Sprite background) {
         BackgroundSlot.sprite = background;
         // resize??
-    }
-
-    public void AddMonstersToBackground(Dungeon dungeon) {
-        //GameObject[] monsters = dungeon;
     }
 
     public void InsertMonsters(MonsterHolder holder) {
@@ -55,6 +55,10 @@ public class SceneGenerator : MonoBehaviour {
         monster.transform.parent = ModelSlot.transform;
         monster.transform.localPosition = new Vector3(0, 0, monster.transform.localPosition.z);
         monster.transform.localScale = colorableInstance.Colorable.ModelScale;
+
+        
+        SetBlackBackgroundToEnvironmentEnemies();
+        SetBlackBackgroundToEnvironmentEnemies(holder);
     }
 
     public void Reset()
@@ -64,6 +68,7 @@ public class SceneGenerator : MonoBehaviour {
 
     internal void TryInsertToEnvironment(Dungeon dungeon)
     {
+        this.dungeon = dungeon;
         if (EnemiesAssignedToScene) {
             return;
         }
@@ -81,10 +86,13 @@ public class SceneGenerator : MonoBehaviour {
             ColorableInstance colorableInstance = monsterHolder[i].MonsterOutlined.GetComponent<ColorableInstance>();
             colorableInstance.MakeColoredModel();
             GameObject sceneMonster = monsterHolder[i].SceneMonster;
+                        
 
-            sceneMonster.transform.parent = BackgroundSlot.transform;
+            
+            //sceneMonster.transform.parent = BackgroundSlot.transform;
+            sceneMonster.transform.parent = BackgroundHolderObject.transform;
             sceneMonster.transform.localScale = colorableInstance.Colorable.EnvironmentScale;
-            sceneMonster.transform.localPosition = new Vector3(currentXPosition, colorableInstance.Colorable.YEnvironmentOffset, 0.1f);
+            sceneMonster.transform.localPosition = new Vector3(currentXPosition, colorableInstance.Colorable.YEnvironmentOffset, -3.5f);
 
             currentXPosition += EnemiesOffset; 
         }
@@ -92,4 +100,27 @@ public class SceneGenerator : MonoBehaviour {
         EnemiesAssignedToScene = true;
     }
 
+    private void SetBlackBackgroundToEnvironmentEnemies() {
+        MonsterHolder[] monsters = dungeon.GetAllMonsters();
+
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            SetBlackBackgroundToEnvironmentEnemies(monsters[i]);
+        }        
+    }
+
+    private void SetBlackBackgroundToEnvironmentEnemies(MonsterHolder holder)
+    {
+        ColorableInstance colorableInstance = holder.SceneMonster.GetComponent<ColorableInstance>();
+
+        int _size = colorableInstance.Colorable.Sections.Length;
+
+        for (int j = 0; j < _size; j++)
+        {
+            colorableInstance.SetColor(j, new Color(0, 0, 0, 0.4f));
+            colorableInstance.TurnOnLayer(ColorableInstance.LAYER_TYPE.COLORS, j);
+        }
+     
+
+    }
 }
