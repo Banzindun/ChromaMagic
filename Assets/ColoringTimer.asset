@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61145e68fb4516b4e8aa58894e386cf9, type: 3}
   m_Name: ColoringTimer
   m_EditorClassIdentifier: 
-  IsCountingDown: 0
+  IsCountingDown: 1
   CountdownTime: 10
   TimeLeft: 10
   IsNoTimeLeft: 0
