@@ -1,6 +1,6 @@
 # Chroma Magic
 
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![alt text](https://github.com/Banzindun/ChromaMagic/blob/master/Assets/Art/UI/title.png)
 
 Created as a part of GDS 2018 Game Jam
 - https://pixel.facebook.com/events/322350491682615/
