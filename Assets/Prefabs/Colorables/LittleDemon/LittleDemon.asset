@@ -15,7 +15,7 @@ MonoBehaviour:
   DetailsLayer: {fileID: 21300000, guid: b4e036faf554b8845999dad5b77e1335, type: 3}
   EffectsLayer: {fileID: 21300000, guid: 64d919a831a5fbd4ba8358bf12136cec, type: 3}
   AdditionalLayers: []
-  BaseTimer: 30
+  BaseTimer: 7.3
   Sections:
   - {fileID: 11400000, guid: c9ee84ae6a6440641947b5a9a25047f4, type: 2}
   - {fileID: 11400000, guid: 6265632593b77e34e899815cfc5af2ea, type: 2}
@@ -23,12 +23,16 @@ MonoBehaviour:
   ColorSets:
   - colors:
     - {r: 0.2735849, g: 0.19228373, b: 0.19228373, a: 1}
-    - {r: 0.6226415, g: 0.5433428, b: 0.5433428, a: 1}
+    - {r: 1, g: 0.99977875, b: 0.6933962, a: 1}
     - {r: 0.8867924, g: 0.23843002, b: 0.23843002, a: 1}
   - colors:
     - {r: 0.3018868, g: 0.009967966, b: 0.009967966, a: 1}
     - {r: 0.8018868, g: 0.79082924, b: 0.14751692, a: 1}
     - {r: 0.2622375, g: 0.7830189, b: 0.5869225, a: 1}
+  - colors:
+    - {r: 0.9150943, g: 0.54060274, b: 0, a: 1}
+    - {r: 0.5079997, g: 0.09411764, b: 0.94509804, a: 1}
+    - {r: 0.7739762, g: 0.78431374, b: 0.26274508, a: 1}
   ModelScale: {x: 7, y: 7, z: 0}
   EnvironmentScale: {x: 10, y: 10, z: 0}
   YEnvironmentOffset: -32.7
