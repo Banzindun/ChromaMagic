@@ -12,3 +12,6 @@ Authors:
 - Jakub Svoboda (Programming)
 - Jan Kočur (Programming)
 
+
+![alt text](https://github.com/Banzindun/ChromaMagic/blob/master/Imgs/gameplay.PNG)
+
